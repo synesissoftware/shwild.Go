@@ -153,12 +153,12 @@ func TestMatch_with_backward_continuum_range(t *testing.T) {
 	check_Match(t, "[c-a]", "b", true, nil)
 	check_Match(t, "[c-a]", "c", true, nil)
 	check_Match(t, "[c-a]", "-", false, nil)
-	check_Match(t, "[a-c]", "z", false, nil)
-	check_Match(t, "[a-c]", "A", false, nil)
-	check_Match(t, "[a-c]", "B", false, nil)
-	check_Match(t, "[a-c]", "C", false, nil)
-	check_Match(t, "[a-c]", "D", false, nil)
-	check_Match(t, "[a-c]", "E", false, nil)
+	check_Match(t, "[c-a]", "z", false, nil)
+	check_Match(t, "[c-a]", "A", false, nil)
+	check_Match(t, "[c-a]", "B", false, nil)
+	check_Match(t, "[c-a]", "C", false, nil)
+	check_Match(t, "[c-a]", "D", false, nil)
+	check_Match(t, "[c-a]", "E", false, nil)
 }
 
 /* ///////////////////////////// end of file //////////////////////////// */
