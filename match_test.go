@@ -228,6 +228,18 @@ func TestMatch_with_forward_crosscase_continuum_notrange(t *testing.T) {
 	check_Match(t, "[^a-C]", "E", true, nil)
 }
 
+func TestMatch_with_escaped_special_characters(t *testing.T) {
+
+	check_Match(t, "a\\*c", "a_c", false, nil)
+	check_Match(t, "a\\*c", "a*c", true, nil)
+
+	check_Match(t, "a\\?c", "a_c", false, nil)
+	check_Match(t, "a\\?c", "a?c", true, nil)
+
+	check_Match(t, "a\\[c", "a_c", false, nil)
+	check_Match(t, "a\\[c", "a[c", true, nil)
+}
+
 /* ///////////////////////////// end of file //////////////////////////// */
 
 

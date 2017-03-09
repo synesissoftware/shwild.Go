@@ -42,7 +42,7 @@ const (
 
 	// Allows quantification of the wildcards, with trailing escaped
 	// numbers, as in [a-Z]\2-10. All chars in 0-9- become range specifiers.
-	// These are se    parated from actual pattern digits by []
+	// These are separated from actual pattern digits by []
 	AllowRangeQuantification
 )
 

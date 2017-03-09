@@ -69,6 +69,7 @@ const (
 	_TOK_NOT_RANGE
 	_TOK_RANGE
 	_TOK_ENOMEM
+	_TOK_ESCAPED_
 )
 
 // _NodeType enumeration
@@ -193,6 +194,7 @@ func write_range(buff *bytes.Buffer, from, to int) {
 func parse_nodes(pattern string, flags uint64) (nodes []node, err error) {
 
 	state := _TOK_LITERAL
+	prev_state := _TOK_LITERAL
 
 	var data []rune
 
@@ -200,9 +202,18 @@ func parse_nodes(pattern string, flags uint64) (nodes []node, err error) {
 
 		switch state {
 
+		case _TOK_ESCAPED_:
+
+			state = prev_state
+			data = append(data, ch)
 		case _TOK_LITERAL:
 
 			switch(ch) {
+
+			case '\\':
+
+				prev_state = state
+				state = _TOK_ESCAPED_
 
 			case '?', '*', '[':
 
