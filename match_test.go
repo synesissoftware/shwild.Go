@@ -145,6 +145,8 @@ func TestMatch_with_forward_continuum_range(t *testing.T) {
 	check_Match(t, "[-ac]", "b", false, nil)
 	check_Match(t, "[-ac]", "c", true, nil)
 	check_Match(t, "[-ac]", "-", true, nil)
+	check_Match(t, "[a-c]", "d", false, nil)
+	check_Match(t, "[a-c]", "z", false, nil)
 }
 
 func TestMatch_with_backward_continuum_range(t *testing.T) {
