@@ -126,7 +126,7 @@ func make_range_node(node_type _NodeType, flags uint64, data string) (n node) {
 
 				if to < from {
 
-					;
+					from, to = to, from
 				}
 
 				if from < to {
