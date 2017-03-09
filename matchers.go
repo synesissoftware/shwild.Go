@@ -230,6 +230,11 @@ func (m notrange_matcher) match(s string) bool {
 		return false
 	}
 
+	if strings.Contains(m.node.data, s[0:1]) {
+
+		return false
+	}
+
 	return m.next.match(s[1:])
 }
 

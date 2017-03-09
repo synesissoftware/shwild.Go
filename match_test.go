@@ -149,6 +149,27 @@ func TestMatch_with_forward_continuum_range(t *testing.T) {
 	check_Match(t, "[a-c]", "z", false, nil)
 }
 
+func TestMatch_with_forward_continuum_notrange(t *testing.T) {
+
+	check_Match(t, "[^a-c]", "a", false, nil)
+	check_Match(t, "[^a-c]", "b", false, nil)
+	check_Match(t, "[^a-c]", "c", false, nil)
+	check_Match(t, "[^a-c]", "-", true, nil)
+	check_Match(t, "[^a-c]", "z", true, nil)
+	check_Match(t, "[^a-c]", "A", true, nil)
+	check_Match(t, "[^a-c]", "B", true, nil)
+	check_Match(t, "[^a-c]", "C", true, nil)
+	check_Match(t, "[^a-c]", "D", true, nil)
+	check_Match(t, "[^a-c]", "E", true, nil)
+
+	check_Match(t, "[^-ac]", "a", false, nil)
+	check_Match(t, "[^-ac]", "b", true, nil)
+	check_Match(t, "[^-ac]", "c", false, nil)
+	check_Match(t, "[^-ac]", "-", false, nil)
+	check_Match(t, "[^a-c]", "d", true, nil)
+	check_Match(t, "[^a-c]", "z", true, nil)
+}
+
 func TestMatch_with_backward_continuum_range(t *testing.T) {
 
 	check_Match(t, "[c-a]", "a", true, nil)
