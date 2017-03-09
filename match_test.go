@@ -161,6 +161,21 @@ func TestMatch_with_backward_continuum_range(t *testing.T) {
 	check_Match(t, "[c-a]", "E", false, nil)
 }
 
+func TestMatch_with_forward_crosscase_continuum_range(t *testing.T) {
+
+	check_Match(t, "[a-C]", "-", false, nil)
+	check_Match(t, "[a-C]", "a", true, nil)
+	check_Match(t, "[a-C]", "b", true, nil)
+	check_Match(t, "[a-C]", "c", true, nil)
+	check_Match(t, "[a-C]", "d", false, nil)
+	check_Match(t, "[a-C]", "z", false, nil)
+	check_Match(t, "[a-C]", "A", true, nil)
+	check_Match(t, "[a-C]", "B", true, nil)
+	check_Match(t, "[a-C]", "C", true, nil)
+	check_Match(t, "[a-C]", "D", false, nil)
+	check_Match(t, "[a-C]", "E", false, nil)
+}
+
 /* ///////////////////////////// end of file //////////////////////////// */
 
 

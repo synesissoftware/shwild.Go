@@ -43,6 +43,7 @@ package shwild
 
 import "bytes"
 import "strings"
+import "unicode"
 
 /* /////////////////////////////////////////////////////////////////////////
  * API types
@@ -121,6 +122,32 @@ func make_range_node(node_type _NodeType, flags uint64, data string) (n node) {
 
 				to_rune := ch
 
+				if unicode.IsLetter(from_rune) && unicode.IsLetter(to_rune) && unicode.IsLower(from_rune) != unicode.IsLower(to_rune) {
+
+					// Have to treat this differently
+
+					var from_lower = int(unicode.ToLower(from_rune))
+					var to_lower = int(unicode.ToLower(to_rune))
+
+					var from_upper = int(unicode.ToUpper(from_rune))
+					var to_upper = int(unicode.ToUpper(to_rune))
+
+					if to_lower < from_lower {
+
+						from_lower, to_lower = to_lower, from_lower
+					}
+
+					if to_upper < from_upper {
+
+						from_upper, to_upper = to_upper, from_upper
+					}
+
+					write_range(&buff, from_lower, to_lower + 1)
+					write_range(&buff, from_upper, to_upper + 1)
+
+					continue
+				}
+
 				var from int = int(from_rune)
 				var to int = int(to_rune)
 
@@ -131,10 +158,7 @@ func make_range_node(node_type _NodeType, flags uint64, data string) (n node) {
 
 				if from < to {
 
-					for i := from; i != to; i++ {
-
-						buff.WriteRune(rune(i))
-					}
+					write_range(&buff, from, to)
 				}
 			}
 
@@ -146,6 +170,14 @@ func make_range_node(node_type _NodeType, flags uint64, data string) (n node) {
 	} else {
 
 		return make_node(node_type, flags, data)
+	}
+}
+
+func write_range(buff *bytes.Buffer, from, to int) {
+
+	for i := from; i != to; i++ {
+
+		buff.WriteRune(rune(i))
 	}
 }
 
