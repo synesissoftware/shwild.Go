@@ -4,7 +4,7 @@
  * Purpose:     Matchers (shwild.Go)
  *
  * Created:     17th June 2005
- * Updated:     12th February 2017
+ * Updated:     9th March 2017
  *
  * Home:        http://shwild.org/
  *
@@ -147,7 +147,7 @@ func make_wildN_matcher(flags uint64, value string) matcher {
 
 	var m wildN_matcher
 
-	m.node	=	make_node(_NODE_WILD_1, flags, value)
+	m.node	=	make_node(_NODE_WILD_N, flags, value)
 
 	return &m
 }
@@ -181,7 +181,7 @@ func make_range_matcher(flags uint64, value string) matcher {
 
 	var m range_matcher
 
-	m.node	=	make_node(_NODE_WILD_1, flags, value)
+	m.node	=	make_node(_NODE_RANGE, flags, value)
 
 	return &m
 }
@@ -215,7 +215,7 @@ func make_notrange_matcher(flags uint64, value string) matcher {
 
 	var m notrange_matcher
 
-	m.node	=	make_node(_NODE_WILD_1, flags, value)
+	m.node	=	make_node(_NODE_NOT_RANGE, flags, value)
 
 	return &m
 }
