@@ -184,6 +184,20 @@ func TestMatch_with_backward_continuum_range(t *testing.T) {
 	check_Match(t, "[c-a]", "E", false, nil)
 }
 
+func TestMatch_with_backward_continuum_notrange(t *testing.T) {
+
+	check_Match(t, "[^c-a]", "a", false, nil)
+	check_Match(t, "[^c-a]", "b", false, nil)
+	check_Match(t, "[^c-a]", "c", false, nil)
+	check_Match(t, "[^c-a]", "-", true, nil)
+	check_Match(t, "[^c-a]", "z", true, nil)
+	check_Match(t, "[^c-a]", "A", true, nil)
+	check_Match(t, "[^c-a]", "B", true, nil)
+	check_Match(t, "[^c-a]", "C", true, nil)
+	check_Match(t, "[^c-a]", "D", true, nil)
+	check_Match(t, "[^c-a]", "E", true, nil)
+}
+
 func TestMatch_with_forward_crosscase_continuum_range(t *testing.T) {
 
 	check_Match(t, "[a-C]", "-", false, nil)
@@ -197,6 +211,21 @@ func TestMatch_with_forward_crosscase_continuum_range(t *testing.T) {
 	check_Match(t, "[a-C]", "C", true, nil)
 	check_Match(t, "[a-C]", "D", false, nil)
 	check_Match(t, "[a-C]", "E", false, nil)
+}
+
+func TestMatch_with_forward_crosscase_continuum_notrange(t *testing.T) {
+
+	check_Match(t, "[^a-C]", "-", true, nil)
+	check_Match(t, "[^a-C]", "a", false, nil)
+	check_Match(t, "[^a-C]", "b", false, nil)
+	check_Match(t, "[^a-C]", "c", false, nil)
+	check_Match(t, "[^a-C]", "d", true, nil)
+	check_Match(t, "[^a-C]", "z", true, nil)
+	check_Match(t, "[^a-C]", "A", false, nil)
+	check_Match(t, "[^a-C]", "B", false, nil)
+	check_Match(t, "[^a-C]", "C", false, nil)
+	check_Match(t, "[^a-C]", "D", true, nil)
+	check_Match(t, "[^a-C]", "E", true, nil)
 }
 
 /* ///////////////////////////// end of file //////////////////////////// */
