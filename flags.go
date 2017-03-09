@@ -11,14 +11,14 @@ const (
 	// treated as a literal character
 	SuppressBackslashEscape
 
-	// Suppresses the recognition of range continuums, i.e. [0-9]
+	// Suppresses the recognition of range continua, i.e. [0-9]
 	SuppressRangeContinuumSupport
 
-	// Suppresses the recognition of reverse range continuums, i.e. [9-0],
+	// Suppresses the recognition of reverse range continua, i.e. [9-0],
 	// [M-D]
 	SuppressRangeContinuumHighlowSupport
 
-	// Suppresses the recognition of cross-case range continuums, i.e. [h-J]
+	// Suppresses the recognition of cross-case range continua, i.e. [h-J]
 	// === [hijHIJ]
 	SuppressRangeContinuumCrosscaseSupport
 

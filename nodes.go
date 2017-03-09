@@ -1,5 +1,5 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        api.go
+ * File:        nodes.go
  *
  * Purpose:     Main shwild.Go API
  *
@@ -41,11 +41,6 @@
 
 package shwild
 
-import "fmt"
-
-const (
-)
-
 /* /////////////////////////////////////////////////////////////////////////
  * API types
  */
@@ -54,93 +49,144 @@ const (
  * internal types
  */
 
+// _TokenType enumeration
+
+type _TokenType	int
+
+const (
+
+	_TOK_INVALID _TokenType = -1 + iota
+	_TOK_START
+	_TOK_END
+	_TOK_LITERAL
+	_TOK_WILD_1
+	_TOK_WILD_N
+	_TOK_RANGE_BEG
+	_TOK_NOT_RANGE
+	_TOK_RANGE
+	_TOK_ENOMEM
+)
+
+// _NodeType enumeration
+
+type _NodeType int
+
+const (
+
+	_NODE_NOTHING _NodeType = iota
+	_NODE_WILD_1
+	_NODE_WILD_N
+	_NODE_RANGE
+	_NODE_NOT_RANGE
+	_NODE_LITERAL
+	_NODE_END
+)
+
+
+// node structure
+
+type node struct {
+
+	node_type	_NodeType
+	flags		uint64
+	data		string
+}
+func make_node(node_type _NodeType, flags uint64, data string) (n node) {
+
+	return node { node_type: node_type, flags: flags, data: data }
+}
 
 /* /////////////////////////////////////////////////////////////////////////
  * API functions
  */
 
-func Match(pattern string, s string, args ...interface{}) (bool, error) {
-
-	// An empty pattern can only match an empty string
-
-	if 0 == len(pattern) {
-
-		return 0 == len(s), nil
-	}
-
-
-	// A pattern composed entirely of '*' can match anything
-
-	allstar := true
-
-	for _, ch := range pattern {
-
-		if '*' != ch {
-
-			allstar = false
-			break
-		}
-	}
-
-	if allstar {
-
-		return true, nil
-	}
-
-
-	// parse flags
-
-	flags := parse_flags_(args...);
-
-	matchers, err := parse_matchers(pattern, flags)
-
-	if nil != err {
-
-		return false, err
-	}
-
-	if 0 == len(matchers) {
-
-		panic("VIOLATION: empty matchers slice")
-	}
-
-	return match_from_compiled_(matchers, s)
-}
 
 /* /////////////////////////////////////////////////////////////////////////
  * internal functions
  */
 
-func parse_flags_(args ...interface{}) uint64 {
+func parse_nodes(pattern string, flags uint64) (nodes []node, err error) {
 
-	var flags uint64 = 0
+	state := _TOK_LITERAL
 
-	for i, arg := range args {
+	var data []rune
 
-		switch v := arg.(type) {
+	for _, ch := range pattern {
 
-			case uint32:
+		switch state {
 
-				flags |= uint64(v)
+		case _TOK_LITERAL:
 
-			case uint64:
+			switch(ch) {
 
-				flags |= v
+			case '?', '*', '[':
 
+				if 0 != len(data) {
+
+					nodes = append(nodes, make_node(_NODE_LITERAL, flags, string(data)))
+					data = make([]rune, 0)
+				}
+
+				switch(ch) {
+
+				case '?':
+
+					nodes = append(nodes, make_node(_NODE_WILD_1, flags, ""))
+				case '*':
+
+					nodes = append(nodes, make_node(_NODE_WILD_N, flags, ""))
+				case '[':
+
+					state = _TOK_RANGE_BEG
+				}
 			default:
 
-				var msg = fmt.Sprintf("invalid type (%T) for argument '%v' at index %d", v, v, i)
+				state = _TOK_LITERAL
+				data = append(data, ch)
+			}
+		case _TOK_RANGE_BEG:
 
-				panic(msg)
+			switch(ch) {
+
+			case '^':
+
+				state = _TOK_NOT_RANGE
+			default:
+
+				state = _TOK_RANGE
+				data = append(data, ch)
+			}
+		case _TOK_RANGE, _TOK_NOT_RANGE:
+
+			if ']' == ch && 0 != len(data) {
+
+				nodes = append(nodes, make_node(_NODE_RANGE, flags, string(data)))
+				data = make([]rune, 0)
+				state = _TOK_START
+			} else {
+
+				data = append(data, ch)
+			}
+		default:
 		}
 	}
 
-	return 0;
-}
+	switch state {
 
-func match_from_compiled_(matchers []matcher, pattern string) (bool, error) {
+	case _TOK_LITERAL:
 
-	return matchers[0].match(pattern), nil
+		nodes = append(nodes, make_node(_NODE_LITERAL, flags, string(data)))
+	case _TOK_WILD_1:
+
+		nodes = append(nodes, make_node(_NODE_WILD_1, flags, ""))
+	case _TOK_WILD_N:
+
+		nodes = append(nodes, make_node(_NODE_WILD_N, flags, ""))
+	}
+
+	nodes = append(nodes, make_node(_NODE_END, flags, ""))
+
+	return
 }
 
 /* ///////////////////////////// end of file //////////////////////////// */
