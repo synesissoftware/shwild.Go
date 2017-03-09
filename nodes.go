@@ -4,7 +4,7 @@
  * Purpose:     Main shwild.Go API
  *
  * Created:     17th June 2005
- * Updated:     12th February 2017
+ * Updated:     9th March 2017
  *
  * Home:        http://shwild.org/
  *
@@ -40,6 +40,9 @@
  * ////////////////////////////////////////////////////////////////////// */
 
 package shwild
+
+import "bytes"
+import "strings"
 
 /* /////////////////////////////////////////////////////////////////////////
  * API types
@@ -94,6 +97,56 @@ type node struct {
 func make_node(node_type _NodeType, flags uint64, data string) (n node) {
 
 	return node { node_type: node_type, flags: flags, data: data }
+}
+
+func make_range_node(node_type _NodeType, flags uint64, data string) (n node) {
+
+	if strings.ContainsRune(data[1:], '-') {
+
+		end_index := len(data) - 1
+		var buff bytes.Buffer
+		var from_rune rune
+		from_index := -1
+
+		for ix, ch := range data {
+
+			if '-' == ch && (0 != ix && end_index != ix) {
+
+				from_index = ix - 1
+
+				continue
+			}
+
+			if from_index + 2 == ix {
+
+				to_rune := ch
+
+				var from int = int(from_rune)
+				var to int = int(to_rune)
+
+				if to < from {
+
+					;
+				}
+
+				if from < to {
+
+					for i := from; i != to; i++ {
+
+						buff.WriteRune(rune(i))
+					}
+				}
+			}
+
+			buff.WriteRune(ch)
+			from_rune = ch
+		}
+
+		return make_node(node_type, flags, buff.String())
+	} else {
+
+		return make_node(node_type, flags, data)
+	}
 }
 
 /* /////////////////////////////////////////////////////////////////////////
@@ -160,7 +213,18 @@ func parse_nodes(pattern string, flags uint64) (nodes []node, err error) {
 
 			if ']' == ch && 0 != len(data) {
 
-				nodes = append(nodes, make_node(_NODE_RANGE, flags, string(data)))
+				var n node
+
+				switch state {
+
+				case _TOK_RANGE:
+					n = make_range_node(_NODE_RANGE, flags, string(data))
+
+				case _TOK_NOT_RANGE:
+					n = make_range_node(_NODE_NOT_RANGE, flags, string(data))
+				}
+
+				nodes = append(nodes, n)
 				data = make([]rune, 0)
 				state = _TOK_START
 			} else {

@@ -181,7 +181,7 @@ func make_range_matcher(flags uint64, value string) matcher {
 
 	var m range_matcher
 
-	m.node	=	make_node(_NODE_RANGE, flags, value)
+	m.node	=	make_range_node(_NODE_RANGE, flags, value)
 
 	return &m
 }

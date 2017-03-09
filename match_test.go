@@ -128,6 +128,19 @@ func TestMatch_with_explicit_range(t *testing.T) {
 	check_Match(t, "[-abc]", "-", true, nil)
 }
 
+func TestMatch_with_forward_continuum_range(t *testing.T) {
+
+	check_Match(t, "[a-c]", "a", true, nil)
+	check_Match(t, "[a-c]", "b", true, nil)
+	check_Match(t, "[a-c]", "c", true, nil)
+	check_Match(t, "[a-c]", "-", false, nil)
+
+	check_Match(t, "[-ac]", "a", true, nil)
+	check_Match(t, "[-ac]", "b", false, nil)
+	check_Match(t, "[-ac]", "c", true, nil)
+	check_Match(t, "[-ac]", "-", true, nil)
+}
+
 /* ///////////////////////////// end of file //////////////////////////// */
 
 
