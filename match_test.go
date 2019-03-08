@@ -1,10 +1,15 @@
 
-package shwild
+package shwild_test
 
-import "fmt"
-import "path"
-import "runtime"
-import "testing"
+import (
+
+	shwild "github.com/synesissoftware/shwild.Go"
+
+	"fmt"
+	"path"
+	"runtime"
+	"testing"
+)
 
 /* /////////////////////////////////////////////////////////////////////////
  * internal functions
@@ -12,7 +17,7 @@ import "testing"
 
 func check_Match(t *testing.T, pattern, s string, expectedResult bool, e error) {
 
-	m_r, m_e := Match(pattern, s)
+	m_r, m_e := shwild.Match(pattern, s)
 
 	if expectedResult == m_r && e == m_e {
 

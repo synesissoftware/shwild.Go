@@ -4,12 +4,12 @@
  * Purpose:     Main shwild.Go API
  *
  * Created:     17th June 2005
- * Updated:     12th February 2017
+ * Updated:     9th March 2019
  *
  * Home:        http://shwild.org/
  *
  * Copyright (c) 2005-2012, Matthew Wilson and Sean Kelly
- * Copyright (c) 2005-2017, Matthew Wilson and Synesis Software
+ * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without

@@ -1,15 +1,15 @@
 /* /////////////////////////////////////////////////////////////////////////
  * File:        nodes.go
  *
- * Purpose:     Main shwild.Go API
+ * Purpose:     Nodes (shwild.Go)
  *
  * Created:     17th June 2005
- * Updated:     9th March 2017
+ * Updated:     9th March 2019
  *
  * Home:        http://shwild.org/
  *
  * Copyright (c) 2005-2012, Matthew Wilson and Sean Kelly
- * Copyright (c) 2005-2017, Matthew Wilson and Synesis Software
+ * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -41,9 +41,12 @@
 
 package shwild
 
-import "bytes"
-import "strings"
-import "unicode"
+import (
+
+	"bytes"
+	"strings"
+	"unicode"
+)
 
 /* /////////////////////////////////////////////////////////////////////////
  * API types

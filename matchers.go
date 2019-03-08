@@ -4,12 +4,12 @@
  * Purpose:     Matchers (shwild.Go)
  *
  * Created:     17th June 2005
- * Updated:     9th March 2017
+ * Updated:     9th March 2019
  *
  * Home:        http://shwild.org/
  *
  * Copyright (c) 2005-2012, Matthew Wilson and Sean Kelly
- * Copyright (c) 2005-2017, Matthew Wilson and Synesis Software
+ * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -41,9 +41,11 @@
 
 package shwild
 
-import "fmt"
-import "os"
-import "strings"
+import (
+
+	"fmt"
+	"strings"
+)
 
 /* /////////////////////////////////////////////////////////////////////////
  * API types
@@ -84,7 +86,6 @@ func (m *literal_matcher) setNext(next matcher) {
 }
 func (m literal_matcher) match(s string) bool {
 
-fmt.Fprintf(os.Stderr, "literal_matcher.match(s: '%v')\n", s)
 
 	l := len(m.node.data)
 
@@ -126,7 +127,6 @@ func (m *wild1_matcher) setNext(next matcher) {
 }
 func (m wild1_matcher) match(s string) bool {
 
-fmt.Fprintf(os.Stderr, "wild1_matcher.match(s: '%v')\n", s)
 
 	if len(s) < 1 {
 
@@ -157,7 +157,6 @@ func (m *wildN_matcher) setNext(next matcher) {
 }
 func (m wildN_matcher) match(s string) bool {
 
-fmt.Fprintf(os.Stderr, "wildN_matcher.match(s: '%v')\n", s)
 
 	for i := 0; i != 1 + len(s); i++ {
 
