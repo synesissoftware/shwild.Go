@@ -306,7 +306,7 @@ func parse_matchers(pattern string, flags uint64) ([]matcher, error) {
 		case _NODE_END:
 			matchers = append(matchers, make_end_matcher(flags))
 		default:
-			panic(fmt.Sprintf("VIOLATION: unexpected node type %V", n.node_type))
+			panic(fmt.Sprintf("VIOLATION: unexpected node type %v", n.node_type))
 		}
 	}
 

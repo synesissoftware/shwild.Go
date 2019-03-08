@@ -50,6 +50,42 @@ const (
  * API types
  */
 
+type patternBehaviour int
+
+const (
+
+	_PB_RegularPattern patternBehaviour	=	1 << iota
+	_PB_EmptyPattern patternBehaviour 	=	1 << iota
+	_PB_AllWildPattern patternBehaviour	=	1 << iota
+)
+
+type CompiledPattern struct {
+
+	matchers	[]matcher
+	behaviour	patternBehaviour
+}
+
+func (cp CompiledPattern) Match(s string) (bool, error) {
+
+	switch cp.behaviour {
+
+	case _PB_EmptyPattern:
+
+		return 0 == len(s), nil
+	case _PB_AllWildPattern:
+
+		return true, nil
+	case _PB_RegularPattern:
+
+		return match_from_compiled_(cp.matchers, s)
+	default:
+
+		msg := fmt.Sprintf("VIOLATION: unrecognised CompiledPattern.behaviour %d", cp.behaviour)
+
+		panic(msg)
+	}
+}
+
 /* /////////////////////////////////////////////////////////////////////////
  * internal types
  */
@@ -105,6 +141,54 @@ func Match(pattern string, s string, args ...interface{}) (bool, error) {
 	}
 
 	return match_from_compiled_(matchers, s)
+}
+
+func Compile(pattern string, args ...interface{}) (CompiledPattern, error) {
+
+	// An empty pattern can only match an empty string
+
+	if 0 == len(pattern) {
+
+		return CompiledPattern{ matchers: nil, behaviour: _PB_EmptyPattern }, nil
+	}
+
+
+	// A pattern composed entirely of '*' can match anything
+
+	allstar := true
+
+	for _, ch := range pattern {
+
+		if '*' != ch {
+
+			allstar = false
+			break
+		}
+	}
+
+	if allstar {
+
+		return CompiledPattern{ matchers: nil, behaviour: _PB_AllWildPattern }, nil
+	}
+
+
+	// parse flags
+
+	flags := parse_flags_(args...);
+
+	matchers, err := parse_matchers(pattern, flags)
+
+	if nil != err {
+
+		return CompiledPattern{}, err
+	}
+
+	if 0 == len(matchers) {
+
+		panic("VIOLATION: empty matchers slice")
+	}
+
+	return CompiledPattern{ matchers: matchers, behaviour: _PB_RegularPattern }, nil
 }
 
 /* /////////////////////////////////////////////////////////////////////////
