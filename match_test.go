@@ -47,7 +47,7 @@ func check_Match(t *testing.T, pattern, s string, expectedResult bool, e error) 
  * tests
  */
 
-func TestMatch_with_empty_pattern(t *testing.T) {
+func Test_Match_with_empty_pattern(t *testing.T) {
 
 	check_Match(t, "", "", true, nil)
 	check_Match(t, "", "1", false, nil)
@@ -55,13 +55,13 @@ func TestMatch_with_empty_pattern(t *testing.T) {
 	check_Match(t, "", ".", false, nil)
 }
 
-func TestMatch_with_wild1(t *testing.T) {
+func Test_Match_with_wild1(t *testing.T) {
 
 	check_Match(t, "?", "", false, nil)
 	check_Match(t, "?", "?", true, nil)
 }
 
-func TestMatch_with_allstar_patterns(t *testing.T) {
+func Test_Match_with_allstar_patterns(t *testing.T) {
 
 	// 1 star
 
@@ -85,7 +85,7 @@ func TestMatch_with_allstar_patterns(t *testing.T) {
 	check_Match(t, "*****", ".", true, nil)
 }
 
-func TestMatch_with_literal(t *testing.T) {
+func Test_Match_with_literal(t *testing.T) {
 
 	check_Match(t, "a", "a", true, nil)
 	check_Match(t, "aa", "a", false, nil)
@@ -93,7 +93,7 @@ func TestMatch_with_literal(t *testing.T) {
 	check_Match(t, "a", "aa", false, nil)
 }
 
-func TestMatch_with_literal_and_wild1(t *testing.T) {
+func Test_Match_with_literal_and_wild1(t *testing.T) {
 
 	check_Match(t, "a?", "a", false, nil)
 	check_Match(t, "a?", "a?", true, nil)
@@ -106,7 +106,7 @@ func TestMatch_with_literal_and_wild1(t *testing.T) {
 	check_Match(t, "?a", "aaa", false, nil)
 }
 
-func TestMatch_with_literal_and_wildN(t *testing.T) {
+func Test_Match_with_literal_and_wildN(t *testing.T) {
 
 	check_Match(t, "a*", "a", true, nil)
 	check_Match(t, "a*", "a*", true, nil)
@@ -123,7 +123,7 @@ func TestMatch_with_literal_and_wildN(t *testing.T) {
 	check_Match(t, "*a", "aaa", true, nil)
 }
 
-func TestMatch_with_explicit_range(t *testing.T) {
+func Test_Match_with_explicit_range(t *testing.T) {
 
 	check_Match(t, "[abc]", "a", true, nil)
 	check_Match(t, "[abc]", "b", true, nil)
@@ -133,7 +133,7 @@ func TestMatch_with_explicit_range(t *testing.T) {
 	check_Match(t, "[-abc]", "-", true, nil)
 }
 
-func TestMatch_with_forward_continuum_range(t *testing.T) {
+func Test_Match_with_forward_continuum_range(t *testing.T) {
 
 	check_Match(t, "[a-c]", "a", true, nil)
 	check_Match(t, "[a-c]", "b", true, nil)
@@ -154,7 +154,7 @@ func TestMatch_with_forward_continuum_range(t *testing.T) {
 	check_Match(t, "[a-c]", "z", false, nil)
 }
 
-func TestMatch_with_forward_continuum_notrange(t *testing.T) {
+func Test_Match_with_forward_continuum_notrange(t *testing.T) {
 
 	check_Match(t, "[^a-c]", "a", false, nil)
 	check_Match(t, "[^a-c]", "b", false, nil)
@@ -175,7 +175,7 @@ func TestMatch_with_forward_continuum_notrange(t *testing.T) {
 	check_Match(t, "[^a-c]", "z", true, nil)
 }
 
-func TestMatch_with_backward_continuum_range(t *testing.T) {
+func Test_Match_with_backward_continuum_range(t *testing.T) {
 
 	check_Match(t, "[c-a]", "a", true, nil)
 	check_Match(t, "[c-a]", "b", true, nil)
@@ -189,7 +189,7 @@ func TestMatch_with_backward_continuum_range(t *testing.T) {
 	check_Match(t, "[c-a]", "E", false, nil)
 }
 
-func TestMatch_with_backward_continuum_notrange(t *testing.T) {
+func Test_Match_with_backward_continuum_notrange(t *testing.T) {
 
 	check_Match(t, "[^c-a]", "a", false, nil)
 	check_Match(t, "[^c-a]", "b", false, nil)
@@ -203,7 +203,7 @@ func TestMatch_with_backward_continuum_notrange(t *testing.T) {
 	check_Match(t, "[^c-a]", "E", true, nil)
 }
 
-func TestMatch_with_forward_crosscase_continuum_range(t *testing.T) {
+func Test_Match_with_forward_crosscase_continuum_range(t *testing.T) {
 
 	check_Match(t, "[a-C]", "-", false, nil)
 	check_Match(t, "[a-C]", "a", true, nil)
@@ -218,7 +218,7 @@ func TestMatch_with_forward_crosscase_continuum_range(t *testing.T) {
 	check_Match(t, "[a-C]", "E", false, nil)
 }
 
-func TestMatch_with_forward_crosscase_continuum_notrange(t *testing.T) {
+func Test_Match_with_forward_crosscase_continuum_notrange(t *testing.T) {
 
 	check_Match(t, "[^a-C]", "-", true, nil)
 	check_Match(t, "[^a-C]", "a", false, nil)
@@ -233,7 +233,7 @@ func TestMatch_with_forward_crosscase_continuum_notrange(t *testing.T) {
 	check_Match(t, "[^a-C]", "E", true, nil)
 }
 
-func TestMatch_with_escaped_special_characters(t *testing.T) {
+func Test_Match_with_escaped_special_characters(t *testing.T) {
 
 	check_Match(t, "a\\*c", "a_c", false, nil)
 	check_Match(t, "a\\*c", "a*c", true, nil)
