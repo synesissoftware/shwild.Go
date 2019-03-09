@@ -41,7 +41,10 @@
 
 package shwild
 
-import "fmt"
+import (
+
+	"fmt"
+)
 
 const (
 )
@@ -55,12 +58,13 @@ type patternBehaviour int
 const (
 
 	_PB_RegularPattern patternBehaviour	=	1 << iota
-	_PB_EmptyPattern patternBehaviour 	=	1 << iota
+	_PB_EmptyPattern patternBehaviour	=	1 << iota
 	_PB_AllWildPattern patternBehaviour	=	1 << iota
 )
 
 type CompiledPattern struct {
 
+	Pattern		string
 	matchers	[]matcher
 	behaviour	patternBehaviour
 }
@@ -83,6 +87,25 @@ func (cp CompiledPattern) Match(s string) (bool, error) {
 		msg := fmt.Sprintf("VIOLATION: unrecognised CompiledPattern.behaviour %d", cp.behaviour)
 
 		panic(msg)
+	}
+}
+
+func (cp CompiledPattern) String() string {
+
+	switch cp.behaviour {
+
+	case _PB_EmptyPattern:
+
+		return fmt.Sprintf("<%T{ <empty-pattern> }>", cp)
+	case _PB_AllWildPattern:
+
+		return fmt.Sprintf("<%T{ <all-wild-pattern> }>", cp)
+	case _PB_RegularPattern:
+
+		return fmt.Sprintf("<%T{ Pattern=%q }>", cp, cp.Pattern)
+	default:
+
+		return fmt.Sprintf("<%T{ <unknown state!> }>", cp)
 	}
 }
 
@@ -149,7 +172,7 @@ func Compile(pattern string, args ...interface{}) (CompiledPattern, error) {
 
 	if 0 == len(pattern) {
 
-		return CompiledPattern{ matchers: nil, behaviour: _PB_EmptyPattern }, nil
+		return CompiledPattern{ Pattern: pattern, matchers: nil, behaviour: _PB_EmptyPattern }, nil
 	}
 
 
@@ -168,7 +191,7 @@ func Compile(pattern string, args ...interface{}) (CompiledPattern, error) {
 
 	if allstar {
 
-		return CompiledPattern{ matchers: nil, behaviour: _PB_AllWildPattern }, nil
+		return CompiledPattern{ Pattern: pattern, matchers: nil, behaviour: _PB_AllWildPattern }, nil
 	}
 
 
@@ -188,7 +211,7 @@ func Compile(pattern string, args ...interface{}) (CompiledPattern, error) {
 		panic("VIOLATION: empty matchers slice")
 	}
 
-	return CompiledPattern{ matchers: matchers, behaviour: _PB_RegularPattern }, nil
+	return CompiledPattern{ Pattern: pattern, matchers: matchers, behaviour: _PB_RegularPattern }, nil
 }
 
 /* /////////////////////////////////////////////////////////////////////////

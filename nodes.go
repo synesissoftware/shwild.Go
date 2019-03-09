@@ -44,6 +44,7 @@ package shwild
 import (
 
 	"bytes"
+	"fmt"
 	"strings"
 	"unicode"
 )
@@ -75,6 +76,26 @@ const (
 	_TOK_ESCAPED_
 )
 
+func (tt _TokenType) String() string {
+
+	switch tt {
+
+	case _TOK_INVALID: return "_TOK_INVALID"
+	case _TOK_START: return "_TOK_START"
+	case _TOK_END: return "_TOK_END"
+	case _TOK_LITERAL: return "_TOK_LITERAL"
+	case _TOK_WILD_1: return "_TOK_WILD_1"
+	case _TOK_WILD_N: return "_TOK_WILD_N"
+	case _TOK_RANGE_BEG: return "_TOK_RANGE_BEG"
+	case _TOK_NOT_RANGE: return "_TOK_NOT_RANGE"
+	case _TOK_RANGE: return "_TOK_RANGE"
+	case _TOK_ENOMEM: return "_TOK_ENOMEM"
+	case _TOK_ESCAPED_: return "_TOK_ESCAPED_"
+	}
+
+	return fmt.Sprintf("<%T %d>", tt, tt)
+}
+
 // _NodeType enumeration
 
 type _NodeType int
@@ -90,6 +111,22 @@ const (
 	_NODE_END
 )
 
+func (nt _NodeType) String() string {
+
+	switch nt {
+
+	case _NODE_NOTHING: return "_NODE_NOTHING"
+	case _NODE_WILD_1: return "_NODE_WILD_1"
+	case _NODE_WILD_N: return "_NODE_WILD_N"
+	case _NODE_RANGE: return "_NODE_RANGE"
+	case _NODE_NOT_RANGE: return "_NODE_NOT_RANGE"
+	case _NODE_LITERAL: return "_NODE_LITERAL"
+	case _NODE_END: return "_NODE_END"
+	}
+
+	return fmt.Sprintf("<%T %d>", nt, nt)
+}
+
 
 // node structure
 
@@ -99,6 +136,12 @@ type node struct {
 	flags		uint64
 	data		string
 }
+
+func (n node) String() string {
+
+	return fmt.Sprintf("<%T{ node_type=%v, flags=0x%x, data=%q}>", n, n.node_type, n.flags, n.data)
+}
+
 func make_node(node_type _NodeType, flags uint64, data string) (n node) {
 
 	return node { node_type: node_type, flags: flags, data: data }
