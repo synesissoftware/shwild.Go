@@ -249,6 +249,18 @@ func Test_Match_with_escaped_special_characters(t *testing.T) {
 	check_Match(t, "a]c", "a]c", true, nil)
 }
 
+func Test_Pattern_Match_from_examples_1(t *testing.T) {
+
+	pattern	:=	"[ER]*"
+
+	check_Match(t, pattern, "", false, nil)
+	check_Match(t, pattern, "E", true, nil)
+	check_Match(t, pattern, "EX", true, nil)
+	check_Match(t, pattern, "EXAMPLES.md", true, nil)
+	check_Match(t, pattern, "README.md", true, nil)
+	check_Match(t, pattern, "LICENSE", false, nil)
+}
+
 /* ///////////////////////////// end of file //////////////////////////// */
 
 

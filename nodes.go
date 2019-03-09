@@ -209,7 +209,7 @@ func parse_nodes(pattern string, flags uint64) (nodes []node, err error) {
 
 			state = prev_state
 			data = append(data, ch)
-		case _TOK_LITERAL:
+		case _TOK_LITERAL, _TOK_START:
 
 			switch(ch) {
 
@@ -222,18 +222,21 @@ func parse_nodes(pattern string, flags uint64) (nodes []node, err error) {
 
 				if 0 != len(data) {
 
-					nodes = append(nodes, make_node(_NODE_LITERAL, flags, string(data)))
-					data = make([]rune, 0)
+					node	:=	make_node(_NODE_LITERAL, flags, string(data))
+					nodes	=	append(nodes, node)
+					data	=	make([]rune, 0)
 				}
 
 				switch(ch) {
 
 				case '?':
 
-					nodes = append(nodes, make_node(_NODE_WILD_1, flags, ""))
+					node	:=	make_node(_NODE_WILD_1, flags, "")
+					nodes	=	append(nodes, node)
 				case '*':
 
-					nodes = append(nodes, make_node(_NODE_WILD_N, flags, ""))
+					node	:=	make_node(_NODE_WILD_N, flags, "")
+					nodes	=	append(nodes, node)
 				case '[':
 
 					state = _TOK_RANGE_BEG
@@ -270,9 +273,9 @@ func parse_nodes(pattern string, flags uint64) (nodes []node, err error) {
 					n = make_range_node(_NODE_NOT_RANGE, flags, string(data))
 				}
 
-				nodes = append(nodes, n)
-				data = make([]rune, 0)
-				state = _TOK_START
+				nodes	=	append(nodes, n)
+				data	=	make([]rune, 0)
+				state	=	_TOK_START
 			} else {
 
 				data = append(data, ch)
@@ -285,16 +288,20 @@ func parse_nodes(pattern string, flags uint64) (nodes []node, err error) {
 
 	case _TOK_LITERAL:
 
-		nodes = append(nodes, make_node(_NODE_LITERAL, flags, string(data)))
+		node	:=	make_node(_NODE_LITERAL, flags, string(data))
+		nodes	=	append(nodes, node)
 	case _TOK_WILD_1:
 
-		nodes = append(nodes, make_node(_NODE_WILD_1, flags, ""))
+		node	:=	make_node(_NODE_WILD_1, flags, "")
+		nodes	=	append(nodes, node)
 	case _TOK_WILD_N:
 
-		nodes = append(nodes, make_node(_NODE_WILD_N, flags, ""))
+		node	:=	make_node(_NODE_WILD_N, flags, "")
+		nodes	=	append(nodes, node)
 	}
 
-	nodes = append(nodes, make_node(_NODE_END, flags, ""))
+	node	:=	make_node(_NODE_END, flags, "")
+	nodes	=	append(nodes, node)
 
 	return
 }

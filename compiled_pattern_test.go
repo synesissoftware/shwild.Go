@@ -489,6 +489,22 @@ func Test_CompiledPattern_Match_with_escaped_special_characters(t *testing.T) {
 	check_CompiledPattern_Match(t, cp, "a]c", true, nil)
 }
 
+func Test_CompiledPattern_Match_from_examples_1(t *testing.T) {
+
+	pattern	:=	"[ER]*"
+
+	cp, err	:=	shwild.Compile(pattern)
+	if err != nil {
+
+		t.Errorf("Failed to compile pattern '%s'", pattern)
+	}
+
+	check_CompiledPattern_Match(t, cp, "", false, nil)
+	check_CompiledPattern_Match(t, cp, "EXAMPLES.md", true, nil)
+	check_CompiledPattern_Match(t, cp, "README.md", true, nil)
+	check_CompiledPattern_Match(t, cp, "LICENSE", false, nil)
+}
+
 /* ///////////////////////////// end of file //////////////////////////// */
 
 
