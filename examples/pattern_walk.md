@@ -188,7 +188,7 @@ with an exit code of 1
 
 ### Show usage
 
-If executed with no arguments
+If executed with the arguments
 
 ```
     go run examples/pattern_walk.go --help
@@ -220,7 +220,7 @@ with an exit code of 1
 
 ### Searching in the project root
 
-If executed with no arguments
+If executed with the arguments
 
 ```
     go run examples/pattern_walk.go -h . '.*' '[ER]*' '*m*.go'
