@@ -1,5 +1,5 @@
 /* /////////////////////////////////////////////////////////////////////////
- * File:        nodes.go
+ * File:        version.go
  *
  * Purpose:     Version file for shwild.Go
  *
