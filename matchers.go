@@ -1,48 +1,16 @@
-/* /////////////////////////////////////////////////////////////////////////
- * File:        matchers.go
- *
- * Purpose:     Matchers (shwild.Go)
- *
- * Created:     17th June 2005
- * Updated:     9th March 2019
- *
- * Home:        http://shwild.org/
- *
- * Copyright (c) 2005-2012, Matthew Wilson and Sean Kelly
- * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are
- * met:
- *
- * - Redistributions of source code must retain the above copyright notice,
- *   this list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright
- *   notice, this list of conditions and the following disclaimer in the
- *   documentation and/or other materials provided with the distribution.
- * - Neither the names of Matthew Wilson, Sean Kelly, Synesis Software nor
- *   the names of any contributors may be used to endorse or promote products
- *   derived from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
- * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * ////////////////////////////////////////////////////////////////////// */
+// Copyright 2005-2012, Matthew Wilson and Sean Kelly. Copyright 2018-2025
+// Matthew Wilson and Synesis Information Systems. All rights reserved. Use
+// of this source code is governed by a BSD-style license that can be found
+// in the LICENSE file.
+
+/*
+ * Created: 17th June 2005
+ * Updated: 24th February 2025
+ */
 
 package shwild
 
 import (
-
 	"fmt"
 	"strings"
 )
@@ -58,12 +26,10 @@ import (
 // matcher interface
 
 type matcher interface {
-
 	setNext(next matcher)
 
-	match(s string) bool;
+	match(s string) bool
 }
-
 
 // literal_matcher : matcher structure
 
@@ -71,12 +37,13 @@ type literal_matcher struct {
 	node
 	next matcher
 }
+
 func make_literal_matcher(flags uint64, value string) matcher {
 
 	var m literal_matcher
 
-	m.node	=	make_node(_NODE_LITERAL, flags, value)
-	m.next	=	nil
+	m.node = make_node(_NODE_LITERAL, flags, value)
+	m.next = nil
 
 	return &m
 }
@@ -85,7 +52,6 @@ func (m *literal_matcher) setNext(next matcher) {
 	m.next = next
 }
 func (m literal_matcher) match(s string) bool {
-
 
 	l := len(m.node.data)
 
@@ -106,18 +72,18 @@ func (m literal_matcher) match(s string) bool {
 	return false
 }
 
-
 // wild1_matcher : matcher structure
 
 type wild1_matcher struct {
 	node
 	next matcher
 }
+
 func make_wild1_matcher(flags uint64, value string) matcher {
 
 	var m wild1_matcher
 
-	m.node	=	make_node(_NODE_WILD_1, flags, value)
+	m.node = make_node(_NODE_WILD_1, flags, value)
 
 	return &m
 }
@@ -127,7 +93,6 @@ func (m *wild1_matcher) setNext(next matcher) {
 }
 func (m wild1_matcher) match(s string) bool {
 
-
 	if len(s) < 1 {
 
 		return false
@@ -136,18 +101,18 @@ func (m wild1_matcher) match(s string) bool {
 	return m.next.match(s[1:])
 }
 
-
 // wildN_matcher : matcher structure
 
 type wildN_matcher struct {
 	node
 	next matcher
 }
+
 func make_wildN_matcher(flags uint64, value string) matcher {
 
 	var m wildN_matcher
 
-	m.node	=	make_node(_NODE_WILD_N, flags, value)
+	m.node = make_node(_NODE_WILD_N, flags, value)
 
 	return &m
 }
@@ -157,8 +122,7 @@ func (m *wildN_matcher) setNext(next matcher) {
 }
 func (m wildN_matcher) match(s string) bool {
 
-
-	for i := 0; i != 1 + len(s); i++ {
+	for i := 0; i != 1+len(s); i++ {
 
 		if m.next.match(s[i:]) {
 
@@ -169,18 +133,18 @@ func (m wildN_matcher) match(s string) bool {
 	return false
 }
 
-
 // range_matcher : matcher structure
 
 type range_matcher struct {
 	node
 	next matcher
 }
+
 func make_range_matcher(flags uint64, value string) matcher {
 
 	var m range_matcher
 
-	m.node	=	make_range_node(_NODE_RANGE, flags, value)
+	m.node = make_range_node(_NODE_RANGE, flags, value)
 
 	return &m
 }
@@ -203,18 +167,18 @@ func (m range_matcher) match(s string) bool {
 	return m.next.match(s[1:])
 }
 
-
 // notrange_matcher : matcher structure
 
 type notrange_matcher struct {
 	node
 	next matcher
 }
+
 func make_notrange_matcher(flags uint64, value string) matcher {
 
 	var m notrange_matcher
 
-	m.node	=	make_node(_NODE_NOT_RANGE, flags, value)
+	m.node = make_node(_NODE_NOT_RANGE, flags, value)
 
 	return &m
 }
@@ -237,17 +201,17 @@ func (m notrange_matcher) match(s string) bool {
 	return m.next.match(s[1:])
 }
 
-
 // end_matcher : matcher structure
 
 type end_matcher struct {
 	node
 }
+
 func make_end_matcher(flags uint64) matcher {
 
 	var m end_matcher
 
-	m.node	=	make_node(_NODE_END, flags, "")
+	m.node = make_node(_NODE_END, flags, "")
 
 	return &m
 }
@@ -263,7 +227,6 @@ func (m end_matcher) match(s string) bool {
 /* /////////////////////////////////////////////////////////////////////////
  * API functions
  */
-
 
 /* /////////////////////////////////////////////////////////////////////////
  * internal functions
@@ -316,7 +279,7 @@ func parse_matchers(pattern string, flags uint64) ([]matcher, error) {
 
 		if 0 != i {
 
-			matchers[i - 1].setNext(m)
+			matchers[i-1].setNext(m)
 		}
 	}
 
@@ -324,5 +287,3 @@ func parse_matchers(pattern string, flags uint64) ([]matcher, error) {
 }
 
 /* ///////////////////////////// end of file //////////////////////////// */
-
-

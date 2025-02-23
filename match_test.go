@@ -1,8 +1,6 @@
-
 package shwild_test
 
 import (
-
 	shwild "github.com/synesissoftware/shwild.Go"
 
 	"fmt"
@@ -32,7 +30,7 @@ func check_Match(t *testing.T, pattern, s string, expectedResult bool, e error) 
 
 		if expectedResult != m_r {
 
-			msg = fmt.Sprintf("\t%s:%d: Match('%s', '%s') returned '%v'; '%v' expected", path.Base(file), line, pattern, s, m_r, expectedResult);
+			msg = fmt.Sprintf("\t%s:%d: Match('%s', '%s') returned '%v'; '%v' expected", path.Base(file), line, pattern, s, m_r, expectedResult)
 		}
 	} else {
 
@@ -251,7 +249,7 @@ func Test_Match_with_escaped_special_characters(t *testing.T) {
 
 func Test_Pattern_Match_from_examples_1(t *testing.T) {
 
-	pattern	:=	"[ER]*"
+	pattern := "[ER]*"
 
 	check_Match(t, pattern, "", false, nil)
 	check_Match(t, pattern, "E", true, nil)
@@ -262,5 +260,3 @@ func Test_Pattern_Match_from_examples_1(t *testing.T) {
 }
 
 /* ///////////////////////////// end of file //////////////////////////// */
-
-
