@@ -1,48 +1,16 @@
-/* /////////////////////////////////////////////////////////////////////////
- * File:        nodes.go
- *
- * Purpose:     Nodes (shwild.Go)
- *
- * Created:     17th June 2005
- * Updated:     9th March 2019
- *
- * Home:        http://shwild.org/
- *
- * Copyright (c) 2005-2012, Matthew Wilson and Sean Kelly
- * Copyright (c) 2005-2019, Matthew Wilson and Synesis Software
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are
- * met:
- *
- * - Redistributions of source code must retain the above copyright notice,
- *   this list of conditions and the following disclaimer.
- * - Redistributions in binary form must reproduce the above copyright
- *   notice, this list of conditions and the following disclaimer in the
- *   documentation and/or other materials provided with the distribution.
- * - Neither the names of Matthew Wilson, Sean Kelly, Synesis Software nor
- *   the names of any contributors may be used to endorse or promote products
- *   derived from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS
- * IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
- * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * ////////////////////////////////////////////////////////////////////// */
+// Copyright 2005-2012, Matthew Wilson and Sean Kelly. Copyright 2018-2025
+// Matthew Wilson and Synesis Information Systems. All rights reserved. Use
+// of this source code is governed by a BSD-style license that can be found
+// in the LICENSE file.
+
+/*
+ * Created: 17th June 2005
+ * Updated: 24th February 2025
+ */
 
 package shwild
 
 import (
-
 	"bytes"
 	"fmt"
 	"strings"
@@ -59,10 +27,9 @@ import (
 
 // _TokenType enumeration
 
-type _TokenType	int
+type _TokenType int
 
 const (
-
 	_TOK_INVALID _TokenType = -1 + iota
 	_TOK_START
 	_TOK_END
@@ -80,17 +47,28 @@ func (tt _TokenType) String() string {
 
 	switch tt {
 
-	case _TOK_INVALID: return "_TOK_INVALID"
-	case _TOK_START: return "_TOK_START"
-	case _TOK_END: return "_TOK_END"
-	case _TOK_LITERAL: return "_TOK_LITERAL"
-	case _TOK_WILD_1: return "_TOK_WILD_1"
-	case _TOK_WILD_N: return "_TOK_WILD_N"
-	case _TOK_RANGE_BEG: return "_TOK_RANGE_BEG"
-	case _TOK_NOT_RANGE: return "_TOK_NOT_RANGE"
-	case _TOK_RANGE: return "_TOK_RANGE"
-	case _TOK_ENOMEM: return "_TOK_ENOMEM"
-	case _TOK_ESCAPED_: return "_TOK_ESCAPED_"
+	case _TOK_INVALID:
+		return "_TOK_INVALID"
+	case _TOK_START:
+		return "_TOK_START"
+	case _TOK_END:
+		return "_TOK_END"
+	case _TOK_LITERAL:
+		return "_TOK_LITERAL"
+	case _TOK_WILD_1:
+		return "_TOK_WILD_1"
+	case _TOK_WILD_N:
+		return "_TOK_WILD_N"
+	case _TOK_RANGE_BEG:
+		return "_TOK_RANGE_BEG"
+	case _TOK_NOT_RANGE:
+		return "_TOK_NOT_RANGE"
+	case _TOK_RANGE:
+		return "_TOK_RANGE"
+	case _TOK_ENOMEM:
+		return "_TOK_ENOMEM"
+	case _TOK_ESCAPED_:
+		return "_TOK_ESCAPED_"
 	}
 
 	return fmt.Sprintf("<%T %d>", tt, tt)
@@ -101,7 +79,6 @@ func (tt _TokenType) String() string {
 type _NodeType int
 
 const (
-
 	_NODE_NOTHING _NodeType = iota
 	_NODE_WILD_1
 	_NODE_WILD_N
@@ -115,26 +92,31 @@ func (nt _NodeType) String() string {
 
 	switch nt {
 
-	case _NODE_NOTHING: return "_NODE_NOTHING"
-	case _NODE_WILD_1: return "_NODE_WILD_1"
-	case _NODE_WILD_N: return "_NODE_WILD_N"
-	case _NODE_RANGE: return "_NODE_RANGE"
-	case _NODE_NOT_RANGE: return "_NODE_NOT_RANGE"
-	case _NODE_LITERAL: return "_NODE_LITERAL"
-	case _NODE_END: return "_NODE_END"
+	case _NODE_NOTHING:
+		return "_NODE_NOTHING"
+	case _NODE_WILD_1:
+		return "_NODE_WILD_1"
+	case _NODE_WILD_N:
+		return "_NODE_WILD_N"
+	case _NODE_RANGE:
+		return "_NODE_RANGE"
+	case _NODE_NOT_RANGE:
+		return "_NODE_NOT_RANGE"
+	case _NODE_LITERAL:
+		return "_NODE_LITERAL"
+	case _NODE_END:
+		return "_NODE_END"
 	}
 
 	return fmt.Sprintf("<%T %d>", nt, nt)
 }
 
-
 // node structure
 
 type node struct {
-
-	node_type	_NodeType
-	flags		uint64
-	data		string
+	node_type _NodeType
+	flags     uint64
+	data      string
 }
 
 func (n node) String() string {
@@ -144,7 +126,7 @@ func (n node) String() string {
 
 func make_node(node_type _NodeType, flags uint64, data string) (n node) {
 
-	return node { node_type: node_type, flags: flags, data: data }
+	return node{node_type: node_type, flags: flags, data: data}
 }
 
 func make_range_node(node_type _NodeType, flags uint64, data string) (n node) {
@@ -165,7 +147,7 @@ func make_range_node(node_type _NodeType, flags uint64, data string) (n node) {
 				continue
 			}
 
-			if from_index + 2 == ix {
+			if from_index+2 == ix {
 
 				to_rune := ch
 
@@ -189,8 +171,8 @@ func make_range_node(node_type _NodeType, flags uint64, data string) (n node) {
 						from_upper, to_upper = to_upper, from_upper
 					}
 
-					write_range(&buff, from_lower, to_lower + 1)
-					write_range(&buff, from_upper, to_upper + 1)
+					write_range(&buff, from_lower, to_lower+1)
+					write_range(&buff, from_upper, to_upper+1)
 
 					continue
 				}
@@ -232,7 +214,6 @@ func write_range(buff *bytes.Buffer, from, to int) {
  * API functions
  */
 
-
 /* /////////////////////////////////////////////////////////////////////////
  * internal functions
  */
@@ -254,7 +235,7 @@ func parse_nodes(pattern string, flags uint64) (nodes []node, err error) {
 			data = append(data, ch)
 		case _TOK_LITERAL, _TOK_START:
 
-			switch(ch) {
+			switch ch {
 
 			case '\\':
 
@@ -265,21 +246,21 @@ func parse_nodes(pattern string, flags uint64) (nodes []node, err error) {
 
 				if 0 != len(data) {
 
-					node	:=	make_node(_NODE_LITERAL, flags, string(data))
-					nodes	=	append(nodes, node)
-					data	=	make([]rune, 0)
+					node := make_node(_NODE_LITERAL, flags, string(data))
+					nodes = append(nodes, node)
+					data = make([]rune, 0)
 				}
 
-				switch(ch) {
+				switch ch {
 
 				case '?':
 
-					node	:=	make_node(_NODE_WILD_1, flags, "")
-					nodes	=	append(nodes, node)
+					node := make_node(_NODE_WILD_1, flags, "")
+					nodes = append(nodes, node)
 				case '*':
 
-					node	:=	make_node(_NODE_WILD_N, flags, "")
-					nodes	=	append(nodes, node)
+					node := make_node(_NODE_WILD_N, flags, "")
+					nodes = append(nodes, node)
 				case '[':
 
 					state = _TOK_RANGE_BEG
@@ -291,7 +272,7 @@ func parse_nodes(pattern string, flags uint64) (nodes []node, err error) {
 			}
 		case _TOK_RANGE_BEG:
 
-			switch(ch) {
+			switch ch {
 
 			case '^':
 
@@ -316,9 +297,9 @@ func parse_nodes(pattern string, flags uint64) (nodes []node, err error) {
 					n = make_range_node(_NODE_NOT_RANGE, flags, string(data))
 				}
 
-				nodes	=	append(nodes, n)
-				data	=	make([]rune, 0)
-				state	=	_TOK_START
+				nodes = append(nodes, n)
+				data = make([]rune, 0)
+				state = _TOK_START
 			} else {
 
 				data = append(data, ch)
@@ -331,24 +312,22 @@ func parse_nodes(pattern string, flags uint64) (nodes []node, err error) {
 
 	case _TOK_LITERAL:
 
-		node	:=	make_node(_NODE_LITERAL, flags, string(data))
-		nodes	=	append(nodes, node)
+		node := make_node(_NODE_LITERAL, flags, string(data))
+		nodes = append(nodes, node)
 	case _TOK_WILD_1:
 
-		node	:=	make_node(_NODE_WILD_1, flags, "")
-		nodes	=	append(nodes, node)
+		node := make_node(_NODE_WILD_1, flags, "")
+		nodes = append(nodes, node)
 	case _TOK_WILD_N:
 
-		node	:=	make_node(_NODE_WILD_N, flags, "")
-		nodes	=	append(nodes, node)
+		node := make_node(_NODE_WILD_N, flags, "")
+		nodes = append(nodes, node)
 	}
 
-	node	:=	make_node(_NODE_END, flags, "")
-	nodes	=	append(nodes, node)
+	node := make_node(_NODE_END, flags, "")
+	nodes = append(nodes, node)
 
 	return
 }
 
 /* ///////////////////////////// end of file //////////////////////////// */
-
-
