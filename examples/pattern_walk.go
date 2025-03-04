@@ -3,7 +3,6 @@
 package main
 
 import (
-
 	clasp "github.com/synesissoftware/CLASP.Go"
 	shwild "github.com/synesissoftware/shwild.Go"
 
@@ -13,24 +12,22 @@ import (
 )
 
 const (
-
-	ProgramVersion	=	"0.0.1"
+	ProgramVersion = "0.0.1"
 )
 
 type ProcessFlag int64
 
 const (
-
-	ProcessFlag_ShowHidden			=	1 << iota
+	ProcessFlag_ShowHidden = 1 << iota
 )
 
 func main() {
 
 	// Specify aliases, parse, and checking standard flags
 
-	flag_ShowHidden := clasp.Alias{ clasp.Flag, "--show-hidden", []string{ "-h" }, "includes hidden files in the search results", nil, 0 }
+	flag_ShowHidden := clasp.Alias{clasp.Flag, "--show-hidden", []string{"-h"}, "includes hidden files in the search results", nil, 0}
 
-	aliases	:= []clasp.Alias {
+	aliases := []clasp.Alias{
 
 		flag_ShowHidden,
 
@@ -38,23 +35,22 @@ func main() {
 		clasp.VersionFlag(),
 	}
 
-	args := clasp.Parse(os.Args, clasp.ParseParams{ Aliases: aliases })
+	args := clasp.Parse(os.Args, clasp.ParseParams{Aliases: aliases})
 
 	if args.FlagIsSpecified(clasp.HelpFlag()) {
 
 		clasp.ShowUsage(aliases, clasp.UsageParams{
 
-			Version: ProgramVersion,
-			InfoLines: []string { "shwild.Go Examples", ":version:", "Walks the given root and all its subdirectories and reports all the files found that match the specified pattern(s)", "" },
+			Version:      ProgramVersion,
+			InfoLines:    []string{"shwild.Go Examples", ":version:", "Walks the given root and all its subdirectories and reports all the files found that match the specified pattern(s)", ""},
 			ValuesString: "{ <root> | . } <pattern-1> [... <pattern-N>]",
 		})
 	}
 
 	if args.FlagIsSpecified(clasp.VersionFlag()) {
 
-		clasp.ShowVersion(aliases, clasp.UsageParams{ Version: ProgramVersion })
+		clasp.ShowVersion(aliases, clasp.UsageParams{Version: ProgramVersion})
 	}
-
 
 	// Program-specific processing of flags/options
 
@@ -64,7 +60,6 @@ func main() {
 
 		flags |= ProcessFlag_ShowHidden
 	}
-
 
 	// Processing values
 
@@ -78,10 +73,10 @@ func main() {
 		// gather the remaining values and convert them into
 		// compiled-patterns
 
-		var directory	string
-		var patterns	[]shwild.CompiledPattern
+		var directory string
+		var patterns []shwild.CompiledPattern
 
-		directory	=	args.Values[0].Value
+		directory = args.Values[0].Value
 
 		for _, value := range args.Values[1:] {
 
@@ -104,21 +99,21 @@ func main() {
 
 func process(directory string, patterns []shwild.CompiledPattern, flags ProcessFlag, program_name string) {
 
-	err := filepath.Walk(directory, func (path string, fi os.FileInfo, err error) error {
+	err := filepath.Walk(directory, func(path string, fi os.FileInfo, err error) error {
 
 		if fi.IsDir() {
 
 			return nil
 		}
 
-		if 0 == (ProcessFlag_ShowHidden & flags) && is_hidden(path, fi) {
+		if 0 == (ProcessFlag_ShowHidden&flags) && is_hidden(path, fi) {
 
 			return nil
 		}
 
 		// see if any of the patterns are matched
 
-		match_any	:=	false
+		match_any := false
 
 		for _, p := range patterns {
 
@@ -157,4 +152,3 @@ func is_hidden(path string, fi os.FileInfo) bool {
 
 	return '.' == fi.Name()[0]
 }
-
