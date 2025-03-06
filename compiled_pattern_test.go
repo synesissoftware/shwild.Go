@@ -1,8 +1,6 @@
-
 package shwild_test
 
 import (
-
 	shwild "github.com/synesissoftware/shwild.Go"
 
 	"fmt"
@@ -32,7 +30,7 @@ func check_CompiledPattern_Match(t *testing.T, cp shwild.CompiledPattern, s stri
 
 		if expectedResult != m_r {
 
-			msg = fmt.Sprintf("\t%s:%d: With CompiledPattern %v calling Match('%s') returned '%v'; '%v' expected", path.Base(file), line, cp, s, m_r, expectedResult);
+			msg = fmt.Sprintf("\t%s:%d: With CompiledPattern %v calling Match('%s') returned '%v'; '%v' expected", path.Base(file), line, cp, s, m_r, expectedResult)
 		}
 	} else {
 
@@ -49,9 +47,9 @@ func check_CompiledPattern_Match(t *testing.T, cp shwild.CompiledPattern, s stri
 
 func Test_CompiledPattern_Match_with_empty_pattern(t *testing.T) {
 
-	pattern	:=	""
+	pattern := ""
 
-	cp, err	:=	shwild.Compile(pattern)
+	cp, err := shwild.Compile(pattern)
 	if err != nil {
 
 		t.Errorf("Failed to compile pattern '%s'", pattern)
@@ -65,9 +63,9 @@ func Test_CompiledPattern_Match_with_empty_pattern(t *testing.T) {
 
 func Test_CompiledPattern_Match_with_wild1(t *testing.T) {
 
-	pattern	:=	"?"
+	pattern := "?"
 
-	cp, err	:=	shwild.Compile(pattern)
+	cp, err := shwild.Compile(pattern)
 	if err != nil {
 
 		t.Errorf("Failed to compile pattern '%s'", pattern)
@@ -79,9 +77,9 @@ func Test_CompiledPattern_Match_with_wild1(t *testing.T) {
 
 func Test_CompiledPattern_Match_with_allstar_patterns(t *testing.T) {
 
-	one_star	:=	"*"
+	one_star := "*"
 
-	cp, err	:=	shwild.Compile(one_star)
+	cp, err := shwild.Compile(one_star)
 	if err != nil {
 
 		t.Errorf("Failed to compile pattern '%s'", one_star)
@@ -94,9 +92,9 @@ func Test_CompiledPattern_Match_with_allstar_patterns(t *testing.T) {
 	check_CompiledPattern_Match(t, cp, "*", true, nil)
 	check_CompiledPattern_Match(t, cp, ".", true, nil)
 
-	two_stars	:=	"**"
+	two_stars := "**"
 
-	cp, err	=	shwild.Compile(two_stars)
+	cp, err = shwild.Compile(two_stars)
 	if err != nil {
 
 		t.Errorf("Failed to compile pattern '%s'", two_stars)
@@ -109,9 +107,9 @@ func Test_CompiledPattern_Match_with_allstar_patterns(t *testing.T) {
 	check_CompiledPattern_Match(t, cp, "*", true, nil)
 	check_CompiledPattern_Match(t, cp, ".", true, nil)
 
-	five_stars	:=	"*****"
+	five_stars := "*****"
 
-	cp, err	=	shwild.Compile(five_stars)
+	cp, err = shwild.Compile(five_stars)
 	if err != nil {
 
 		t.Errorf("Failed to compile pattern '%s'", five_stars)
@@ -127,9 +125,9 @@ func Test_CompiledPattern_Match_with_allstar_patterns(t *testing.T) {
 
 func Test_CompiledPattern_Match_with_literal(t *testing.T) {
 
-	one_a	:=	"a"
+	one_a := "a"
 
-	cp, err	:=	shwild.Compile(one_a)
+	cp, err := shwild.Compile(one_a)
 	if err != nil {
 
 		t.Errorf("Failed to compile pattern '%s'", one_a)
@@ -138,9 +136,9 @@ func Test_CompiledPattern_Match_with_literal(t *testing.T) {
 	check_CompiledPattern_Match(t, cp, "a", true, nil)
 	check_CompiledPattern_Match(t, cp, "aa", false, nil)
 
-	two_as	:=	"aa"
+	two_as := "aa"
 
-	cp, err	=	shwild.Compile(two_as)
+	cp, err = shwild.Compile(two_as)
 	if err != nil {
 
 		t.Errorf("Failed to compile pattern '%s'", two_as)
@@ -152,9 +150,9 @@ func Test_CompiledPattern_Match_with_literal(t *testing.T) {
 
 func Test_CompiledPattern_Match_with_literal_and_wild1(t *testing.T) {
 
-	pattern	:=	"a?"
+	pattern := "a?"
 
-	cp, err	:=	shwild.Compile(pattern)
+	cp, err := shwild.Compile(pattern)
 	if err != nil {
 
 		t.Errorf("Failed to compile pattern '%s'", pattern)
@@ -165,9 +163,9 @@ func Test_CompiledPattern_Match_with_literal_and_wild1(t *testing.T) {
 	check_CompiledPattern_Match(t, cp, "aa", true, nil)
 	check_CompiledPattern_Match(t, cp, "aaa", false, nil)
 
-	pattern	=	"?a"
+	pattern = "?a"
 
-	cp, err	=	shwild.Compile(pattern)
+	cp, err = shwild.Compile(pattern)
 	if err != nil {
 
 		t.Errorf("Failed to compile pattern '%s'", pattern)
@@ -182,9 +180,9 @@ func Test_CompiledPattern_Match_with_literal_and_wild1(t *testing.T) {
 
 func Test_CompiledPattern_Match_with_literal_and_wildN(t *testing.T) {
 
-	pattern	:=	"a*"
+	pattern := "a*"
 
-	cp, err	:=	shwild.Compile(pattern)
+	cp, err := shwild.Compile(pattern)
 	if err != nil {
 
 		t.Errorf("Failed to compile pattern '%s'", pattern)
@@ -196,9 +194,9 @@ func Test_CompiledPattern_Match_with_literal_and_wildN(t *testing.T) {
 	check_CompiledPattern_Match(t, cp, "aaa", true, nil)
 	check_CompiledPattern_Match(t, cp, "abcdefghijklmno", true, nil)
 
-	pattern	=	"*a"
+	pattern = "*a"
 
-	cp, err	=	shwild.Compile(pattern)
+	cp, err = shwild.Compile(pattern)
 	if err != nil {
 
 		t.Errorf("Failed to compile pattern '%s'", pattern)
@@ -210,9 +208,9 @@ func Test_CompiledPattern_Match_with_literal_and_wildN(t *testing.T) {
 	check_CompiledPattern_Match(t, cp, "aa", true, nil)
 	check_CompiledPattern_Match(t, cp, "aaa", true, nil)
 
-	pattern	=	"a*o"
+	pattern = "a*o"
 
-	cp, err	=	shwild.Compile(pattern)
+	cp, err = shwild.Compile(pattern)
 	if err != nil {
 
 		t.Errorf("Failed to compile pattern '%s'", pattern)
@@ -220,9 +218,9 @@ func Test_CompiledPattern_Match_with_literal_and_wildN(t *testing.T) {
 
 	check_CompiledPattern_Match(t, cp, "abcdefghijklmno", true, nil)
 
-	pattern	=	"a*n"
+	pattern = "a*n"
 
-	cp, err	=	shwild.Compile(pattern)
+	cp, err = shwild.Compile(pattern)
 	if err != nil {
 
 		t.Errorf("Failed to compile pattern '%s'", pattern)
@@ -230,9 +228,9 @@ func Test_CompiledPattern_Match_with_literal_and_wildN(t *testing.T) {
 
 	check_CompiledPattern_Match(t, cp, "abcdefghijklmno", false, nil)
 
-	pattern	=	"a*n*"
+	pattern = "a*n*"
 
-	cp, err	=	shwild.Compile(pattern)
+	cp, err = shwild.Compile(pattern)
 	if err != nil {
 
 		t.Errorf("Failed to compile pattern '%s'", pattern)
@@ -243,9 +241,9 @@ func Test_CompiledPattern_Match_with_literal_and_wildN(t *testing.T) {
 
 func Test_CompiledPattern_Match_with_explicit_range(t *testing.T) {
 
-	pattern	:=	"[abc]"
+	pattern := "[abc]"
 
-	cp, err	:=	shwild.Compile(pattern)
+	cp, err := shwild.Compile(pattern)
 	if err != nil {
 
 		t.Errorf("Failed to compile pattern '%s'", pattern)
@@ -256,9 +254,9 @@ func Test_CompiledPattern_Match_with_explicit_range(t *testing.T) {
 	check_CompiledPattern_Match(t, cp, "c", true, nil)
 	check_CompiledPattern_Match(t, cp, "d", false, nil)
 
-	pattern	=	"[-abc]"
+	pattern = "[-abc]"
 
-	cp, err	=	shwild.Compile(pattern)
+	cp, err = shwild.Compile(pattern)
 	if err != nil {
 
 		t.Errorf("Failed to compile pattern '%s'", pattern)
@@ -269,9 +267,9 @@ func Test_CompiledPattern_Match_with_explicit_range(t *testing.T) {
 
 func Test_CompiledPattern_Match_with_forward_continuum_range(t *testing.T) {
 
-	pattern	:=	"[a-c]"
+	pattern := "[a-c]"
 
-	cp, err	:=	shwild.Compile(pattern)
+	cp, err := shwild.Compile(pattern)
 	if err != nil {
 
 		t.Errorf("Failed to compile pattern '%s'", pattern)
@@ -288,9 +286,9 @@ func Test_CompiledPattern_Match_with_forward_continuum_range(t *testing.T) {
 	check_CompiledPattern_Match(t, cp, "D", false, nil)
 	check_CompiledPattern_Match(t, cp, "E", false, nil)
 
-	pattern	=	"[-ac]"
+	pattern = "[-ac]"
 
-	cp, err	=	shwild.Compile(pattern)
+	cp, err = shwild.Compile(pattern)
 	if err != nil {
 
 		t.Errorf("Failed to compile pattern '%s'", pattern)
@@ -306,9 +304,9 @@ func Test_CompiledPattern_Match_with_forward_continuum_range(t *testing.T) {
 
 func Test_CompiledPattern_Match_with_forward_continuum_notrange(t *testing.T) {
 
-	pattern	:=	"[^a-c]"
+	pattern := "[^a-c]"
 
-	cp, err	:=	shwild.Compile(pattern)
+	cp, err := shwild.Compile(pattern)
 	if err != nil {
 
 		t.Errorf("Failed to compile pattern '%s'", pattern)
@@ -325,9 +323,9 @@ func Test_CompiledPattern_Match_with_forward_continuum_notrange(t *testing.T) {
 	check_CompiledPattern_Match(t, cp, "D", true, nil)
 	check_CompiledPattern_Match(t, cp, "E", true, nil)
 
-	pattern	=	"[^-ac]"
+	pattern = "[^-ac]"
 
-	cp, err	=	shwild.Compile(pattern)
+	cp, err = shwild.Compile(pattern)
 	if err != nil {
 
 		t.Errorf("Failed to compile pattern '%s'", pattern)
@@ -343,9 +341,9 @@ func Test_CompiledPattern_Match_with_forward_continuum_notrange(t *testing.T) {
 
 func Test_CompiledPattern_Match_with_backward_continuum_range(t *testing.T) {
 
-	pattern	:=	"[c-a]"
+	pattern := "[c-a]"
 
-	cp, err	:=	shwild.Compile(pattern)
+	cp, err := shwild.Compile(pattern)
 	if err != nil {
 
 		t.Errorf("Failed to compile pattern '%s'", pattern)
@@ -365,9 +363,9 @@ func Test_CompiledPattern_Match_with_backward_continuum_range(t *testing.T) {
 
 func Test_CompiledPattern_Match_with_backward_continuum_notrange(t *testing.T) {
 
-	pattern	:=	"[^c-a]"
+	pattern := "[^c-a]"
 
-	cp, err	:=	shwild.Compile(pattern)
+	cp, err := shwild.Compile(pattern)
 	if err != nil {
 
 		t.Errorf("Failed to compile pattern '%s'", pattern)
@@ -387,9 +385,9 @@ func Test_CompiledPattern_Match_with_backward_continuum_notrange(t *testing.T) {
 
 func Test_CompiledPattern_Match_with_forward_crosscase_continuum_range(t *testing.T) {
 
-	pattern	:=	"[a-C]"
+	pattern := "[a-C]"
 
-	cp, err	:=	shwild.Compile(pattern)
+	cp, err := shwild.Compile(pattern)
 	if err != nil {
 
 		t.Errorf("Failed to compile pattern '%s'", pattern)
@@ -410,9 +408,9 @@ func Test_CompiledPattern_Match_with_forward_crosscase_continuum_range(t *testin
 
 func Test_CompiledPattern_Match_with_forward_crosscase_continuum_notrange(t *testing.T) {
 
-	pattern	:=	"[^a-C]"
+	pattern := "[^a-C]"
 
-	cp, err	:=	shwild.Compile(pattern)
+	cp, err := shwild.Compile(pattern)
 	if err != nil {
 
 		t.Errorf("Failed to compile pattern '%s'", pattern)
@@ -433,9 +431,9 @@ func Test_CompiledPattern_Match_with_forward_crosscase_continuum_notrange(t *tes
 
 func Test_CompiledPattern_Match_with_escaped_special_characters(t *testing.T) {
 
-	pattern	:=	"a\\*c"
+	pattern := "a\\*c"
 
-	cp, err	:=	shwild.Compile(pattern)
+	cp, err := shwild.Compile(pattern)
 	if err != nil {
 
 		t.Errorf("Failed to compile pattern '%s'", pattern)
@@ -444,9 +442,9 @@ func Test_CompiledPattern_Match_with_escaped_special_characters(t *testing.T) {
 	check_CompiledPattern_Match(t, cp, "a_c", false, nil)
 	check_CompiledPattern_Match(t, cp, "a*c", true, nil)
 
-	pattern	=	"a\\?c"
+	pattern = "a\\?c"
 
-	cp, err	=	shwild.Compile(pattern)
+	cp, err = shwild.Compile(pattern)
 	if err != nil {
 
 		t.Errorf("Failed to compile pattern '%s'", pattern)
@@ -455,9 +453,9 @@ func Test_CompiledPattern_Match_with_escaped_special_characters(t *testing.T) {
 	check_CompiledPattern_Match(t, cp, "a_c", false, nil)
 	check_CompiledPattern_Match(t, cp, "a?c", true, nil)
 
-	pattern	=	"a\\[c"
+	pattern = "a\\[c"
 
-	cp, err	=	shwild.Compile(pattern)
+	cp, err = shwild.Compile(pattern)
 	if err != nil {
 
 		t.Errorf("Failed to compile pattern '%s'", pattern)
@@ -466,9 +464,9 @@ func Test_CompiledPattern_Match_with_escaped_special_characters(t *testing.T) {
 	check_CompiledPattern_Match(t, cp, "a_c", false, nil)
 	check_CompiledPattern_Match(t, cp, "a[c", true, nil)
 
-	pattern	=	"a\\]c"
+	pattern = "a\\]c"
 
-	cp, err	=	shwild.Compile(pattern)
+	cp, err = shwild.Compile(pattern)
 	if err != nil {
 
 		t.Errorf("Failed to compile pattern '%s'", pattern)
@@ -477,9 +475,9 @@ func Test_CompiledPattern_Match_with_escaped_special_characters(t *testing.T) {
 	check_CompiledPattern_Match(t, cp, "a_c", false, nil)
 	check_CompiledPattern_Match(t, cp, "a]c", true, nil)
 
-	pattern	=	"a]c"
+	pattern = "a]c"
 
-	cp, err	=	shwild.Compile(pattern)
+	cp, err = shwild.Compile(pattern)
 	if err != nil {
 
 		t.Errorf("Failed to compile pattern '%s'", pattern)
@@ -491,9 +489,9 @@ func Test_CompiledPattern_Match_with_escaped_special_characters(t *testing.T) {
 
 func Test_CompiledPattern_Match_from_examples_1(t *testing.T) {
 
-	pattern	:=	"[ER]*"
+	pattern := "[ER]*"
 
-	cp, err	:=	shwild.Compile(pattern)
+	cp, err := shwild.Compile(pattern)
 	if err != nil {
 
 		t.Errorf("Failed to compile pattern '%s'", pattern)
@@ -506,5 +504,3 @@ func Test_CompiledPattern_Match_from_examples_1(t *testing.T) {
 }
 
 /* ///////////////////////////// end of file //////////////////////////// */
-
-
