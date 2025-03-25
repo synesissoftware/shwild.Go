@@ -1,4 +1,7 @@
 # shwild.Go
+
+[![Go Reference](https://pkg.go.dev/badge/github.com/synesissoftware/shwild.Go.svg)](https://pkg.go.dev/github.com/synesissoftware/shwild.Go)
+
 **S**hell-C**o**mpatible W**ILDc**ards for Go
 
 ## Introduction
