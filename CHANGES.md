@@ -1,6 +1,12 @@
 # **shwild.Go** Changes
 
 
+## 0.2.5 - 13th August 2025
+
+* added **examples/libver**;
+* boilerplate;
+
+
 ## 0.2.4 - 13th August 2025
 
 * boilerplate, including badges and README;

@@ -175,7 +175,7 @@ func is_hidden(path string, fi os.FileInfo) bool {
 If executed with no arguments
 
 ```
-    go run examples/pattern_walk.go
+$ go run examples/pattern_walk.go
 ```
 
 it gives the output:
@@ -191,7 +191,7 @@ with an exit code of 1
 If executed with the arguments
 
 ```
-    go run examples/pattern_walk.go --help
+$ go run examples/pattern_walk.go --help
 ```
 
 it gives the output:
@@ -223,7 +223,7 @@ with an exit code of 1
 If executed with the arguments
 
 ```
-    go run examples/pattern_walk.go -h . '.*' '[ER]*' '*m*.go'
+$ go run examples/pattern_walk.go -h . '.*' '[ER]*' '*m*.go'
 ```
 
 it gives the output:
