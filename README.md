@@ -1,20 +1,32 @@
-# shwild.Go
+# shwild.Go <!-- omit in toc -->
 
+[![GitHub release](https://img.shields.io/github/v/release/synesissoftware/shwild.Go.svg)](https://github.com/synesissoftware/shwild.Go/releases/latest)
 [![Go Reference](https://pkg.go.dev/badge/github.com/synesissoftware/shwild.Go.svg)](https://pkg.go.dev/github.com/synesissoftware/shwild.Go)
+[![Go Report Card](https://goreportcard.com/badge/github.com/synesissoftware/shwild.Go)](https://goreportcard.com/report/github.com/synesissoftware/shwild.Go)
+[![Last Commit](https://img.shields.io/github/last-commit/synesissoftware/shwild.Go)](https://github.com/synesissoftware/shwild.Go/commits/master)
 
 **S**hell-C**o**mpatible W**ILDc**ards for Go
 
 ## Introduction
 
-TBC
+**shwild** is a small, simple library that provides shell-compatible wildcard matching. It implemented in several languages: **shwild.Go** is the **Go** implementation.
 
-## Table of Contents
 
-1. [Introduction](#introduction)
-2. [Installation](#installation)
-3. [Components](#components)
-4. [Examples](#examples)
-5. [Project Information](#project-information)
+## Table of Contents <!-- omit in toc -->
+
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Components](#components)
+	- [Standalone match function](#standalone-match-function)
+	- [Compiled pattern](#compiled-pattern)
+- [Examples](#examples)
+- [Project Information](#project-information)
+	- [Where to get help](#where-to-get-help)
+	- [Contribution guidelines](#contribution-guidelines)
+	- [Dependencies](#dependencies)
+		- [Development/Example/Testing Dependencies](#developmentexampletesting-dependencies)
+	- [Related projects](#related-projects)
+	- [License](#license)
 
 ## Installation
 
@@ -25,7 +37,30 @@ import shwild "github.com/synesissoftware/shwild.Go"
 
 ## Components
 
-TBC
+Two means of pattern matching are provided:
+* standalone match function; and
+* compiled pattern;
+
+
+### Standalone match function
+
+```Go
+func Match(pattern string, s string, args ...interface{}) (bool, error)
+```
+
+`shwild.Match` evaluates string `s` against `pattern`, subject to additional arguments that moderate behaviour, and returns a `bool` that indicates match if the function succeeds; if if fails the `error` contains information about why.
+
+
+### Compiled pattern
+
+```Go
+func Compile(pattern string, args ...interface{}) (CompiledPattern, error)
+
+func (cp CompiledPattern) Match(s string) (bool, error)
+```
+
+`shwild.Compile` compiles `pattern` into a `CompiledPattern` instance, which may then be used to evaluate string `s` against `pattern`, subject to additional arguments that moderate behaviour, and returns a `bool` that indicates match if the function succeeds; if if fails the `error` contains information about why.
+
 
 ## Examples
 
@@ -43,9 +78,22 @@ Defect reports, feature requests, and pull requests are welcome on https://githu
 
 ### Dependencies
 
+* [**ver2go**](https://github.com/synesissoftware/ver2go/);
+
+
+#### Development/Example/Testing Dependencies
+
+* [**CLASP.Go**](https://github.com/synesissoftware/CLASP.Go/);
+* [**STEGoL**](https://github.com/synesissoftware/STEGoL/);
+* [**testify**](https://github.com/stretchr/testify);
+
+
+
 ### Related projects
 
 * [**shwild**](https://github.com/synesissoftware/shwild/)
+* [**shwild.Rust**](https://github.com/synesissoftware/shwild.Rust/)
+
 
 ### License
 

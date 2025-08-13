@@ -5,7 +5,7 @@
 
 /*
  * Created: 17th June 2005
- * Updated: 24th February 2025
+ * Updated: 13th August 2025
  */
 
 package shwild
@@ -15,8 +15,8 @@ import "github.com/synesissoftware/ver2go"
 const (
 	VersionMajor uint16 = 0
 	VersionMinor uint16 = 2
-	VersionPatch uint16 = 3
-	VersionAB    uint16 = 0x4002
+	VersionPatch uint16 = 4
+	VersionAB    uint16 = 0xFFFF
 	Version      uint64 = (uint64(VersionMajor) << 48) + (uint64(VersionMinor) << 32) + (uint64(VersionPatch) << 16) + (uint64(VersionAB) << 0)
 )
 
