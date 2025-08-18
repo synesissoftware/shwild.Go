@@ -1,6 +1,6 @@
 # shwild.Go <!-- omit in toc -->
 
-[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)
+[![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![GitHub release](https://img.shields.io/github/v/release/synesissoftware/shwild.Go.svg)](https://github.com/synesissoftware/shwild.Go/releases/latest)
 [![Last Commit](https://img.shields.io/github/last-commit/synesissoftware/shwild.Go)](https://github.com/synesissoftware/shwild.Go/commits/master)
 [![Go](https://github.com/synesissoftware/shwild.Go/actions/workflows/go.yml/badge.svg)](https://github.com/synesissoftware/shwild.Go/actions/workflows/go.yml)
@@ -48,7 +48,7 @@ Two means of pattern matching are provided:
 ### Standalone match function
 
 ```Go
-func Match(pattern string, s string, args ...interface{}) (bool, error)
+func Match(pattern string, s string, args ...any) (bool, error)
 ```
 
 `shwild.Match` evaluates string `s` against `pattern`, subject to additional arguments that moderate behaviour, and returns a `bool` that indicates match if the function succeeds; if if fails the `error` contains information about why.
@@ -57,7 +57,7 @@ func Match(pattern string, s string, args ...interface{}) (bool, error)
 ### Compiled pattern
 
 ```Go
-func Compile(pattern string, args ...interface{}) (CompiledPattern, error)
+func Compile(pattern string, args ...any) (CompiledPattern, error)
 
 func (cp CompiledPattern) Match(s string) (bool, error)
 ```
@@ -69,7 +69,9 @@ func (cp CompiledPattern) Match(s string) (bool, error)
 
 Examples are provided in the ```examples``` directory, along with a markdown description for each. A detailed list TOC of them is provided in [EXAMPLES.md](./EXAMPLES.md).
 
+
 ## Project Information
+
 
 ### Where to get help
 
@@ -78,6 +80,7 @@ Examples are provided in the ```examples``` directory, along with a markdown des
 ### Contribution guidelines
 
 Defect reports, feature requests, and pull requests are welcome on https://github.com/synesissoftware/shwild.Go.
+
 
 ### Dependencies
 
@@ -94,8 +97,8 @@ Defect reports, feature requests, and pull requests are welcome on https://githu
 
 ### Related projects
 
-* [**shwild**](https://github.com/synesissoftware/shwild/)
-* [**shwild.Rust**](https://github.com/synesissoftware/shwild.Rust/)
+* [**shwild**](https://github.com/synesissoftware/shwild/);
+* [**shwild.Rust**](https://github.com/synesissoftware/shwild.Rust/);
 
 
 ### License

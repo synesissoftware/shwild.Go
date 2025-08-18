@@ -1,6 +1,11 @@
 # **shwild.Go** Changes
 
 
+## 0.2.7 - 18th August 2025
+
+* `interface{}` => `any`;
+
+
 ## 0.2.6 - 18th August 2025
 
 * GitHub Actions;

@@ -80,7 +80,7 @@ func (cp CompiledPattern) String() string {
  * API functions
  */
 
-func Match(pattern string, s string, args ...interface{}) (bool, error) {
+func Match(pattern string, s string, args ...any) (bool, error) {
 
 	// An empty pattern can only match an empty string
 
@@ -126,7 +126,7 @@ func Match(pattern string, s string, args ...interface{}) (bool, error) {
 	return match_from_compiled_(matchers, s)
 }
 
-func Compile(pattern string, args ...interface{}) (CompiledPattern, error) {
+func Compile(pattern string, args ...any) (CompiledPattern, error) {
 
 	// An empty pattern can only match an empty string
 
@@ -176,7 +176,7 @@ func Compile(pattern string, args ...interface{}) (CompiledPattern, error) {
  * internal functions
  */
 
-func parse_flags_(args ...interface{}) uint64 {
+func parse_flags_(args ...any) uint64 {
 
 	var flags uint64 = 0
 
