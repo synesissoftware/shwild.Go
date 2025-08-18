@@ -8,8 +8,6 @@ github.com/synesissoftware/ANGoLS v0.0.0-20190330004400-955d82dbf73b h1:LZXvCZX1
 github.com/synesissoftware/ANGoLS v0.0.0-20190330004400-955d82dbf73b/go.mod h1:wtCqRwaBUx0IlBLu6ft0ukFP1Qnuv/lRr6U1R+mEXR8=
 github.com/synesissoftware/CLASP.Go v0.0.0-20250223051136-3717dd3875f8 h1:WbXgqb2jo085jSGCmmdvgeLn1wBj80YWQx0ZBjhoBJ4=
 github.com/synesissoftware/CLASP.Go v0.0.0-20250223051136-3717dd3875f8/go.mod h1:RumhpS9UZSTb3j4R4OzGfkCjhXvo6OWo03ocgYkzYZ8=
-github.com/synesissoftware/ver2go v0.0.0-20250213011429-1fbcb230c744 h1:/+nOiKrcuGd+oi/81p47CKtA3Q+Ct4YseOIMfKHcpsQ=
-github.com/synesissoftware/ver2go v0.0.0-20250213011429-1fbcb230c744/go.mod h1:ZvENMYQ3mjb9e5ymZL5OyQAa56ckYVTvAvycvYg8Vlw=
 github.com/synesissoftware/ver2go v0.1.1 h1:1EiJsX64Cw8dUU+UGrWUU0dkvmlVtmWkaFyvaSsiEkc=
 github.com/synesissoftware/ver2go v0.1.1/go.mod h1:ZvENMYQ3mjb9e5ymZL5OyQAa56ckYVTvAvycvYg8Vlw=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405 h1:yhCVgyC4o1eVCa2tZl7eS0r+SDo693bJlVdllGtEeKM=
