@@ -1,6 +1,13 @@
 # **shwild.Go** Changes
 
 
+## 0.2.6 - 18th August 2025
+
+* GitHub Actions;
+* Fixed dependency on old aspects of **CLASP.Go**;
+* boilerplate;
+
+
 ## 0.2.5 - 13th August 2025
 
 * added **examples/libver**;

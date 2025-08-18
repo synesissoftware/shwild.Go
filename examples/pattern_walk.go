@@ -25,9 +25,9 @@ func main() {
 
 	// Specify aliases, parse, and checking standard flags
 
-	flag_ShowHidden := clasp.Alias{clasp.Flag, "--show-hidden", []string{"-h"}, "includes hidden files in the search results", nil, 0}
+	flag_ShowHidden := clasp.Flag("--show-hidden").SetAlias("-h").SetHelp("includes hidden files in the search results")
 
-	aliases := []clasp.Alias{
+	specifications := []clasp.Specification{
 
 		flag_ShowHidden,
 
@@ -35,11 +35,11 @@ func main() {
 		clasp.VersionFlag(),
 	}
 
-	args := clasp.Parse(os.Args, clasp.ParseParams{Aliases: aliases})
+	args := clasp.Parse(os.Args, clasp.ParseParams{Specifications: specifications})
 
 	if args.FlagIsSpecified(clasp.HelpFlag()) {
 
-		clasp.ShowUsage(aliases, clasp.UsageParams{
+		clasp.ShowUsage(specifications, clasp.UsageParams{
 
 			Version:      ProgramVersion,
 			InfoLines:    []string{"shwild.Go Examples", ":version:", "Walks the given root and all its subdirectories and reports all the files found that match the specified pattern(s)", ""},
@@ -49,7 +49,7 @@ func main() {
 
 	if args.FlagIsSpecified(clasp.VersionFlag()) {
 
-		clasp.ShowVersion(aliases, clasp.UsageParams{Version: ProgramVersion})
+		clasp.ShowVersion(specifications, clasp.UsageParams{Version: ProgramVersion})
 	}
 
 	// Program-specific processing of flags/options
