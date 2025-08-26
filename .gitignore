@@ -20,6 +20,7 @@
 *.exe
 *.lib
 *.o
+*.out
 *.prof
 *.so
 *.sw[pon]

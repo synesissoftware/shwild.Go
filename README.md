@@ -10,15 +10,10 @@
 **S**hell-C**o**mpatible W**ILDc**ards for Go
 
 
-## Introduction
-
-**shwild** is a small, simple library that provides shell-compatible wildcard matching. It implemented in several languages: **shwild.Go** is the **Go** implementation.
-
-
 ## Table of Contents <!-- omit in toc -->
 
 - [Introduction](#introduction)
-- [Installation](#installation)
+- [Installation \& Usage](#installation--usage)
 - [Components](#components)
 	- [Standalone match function](#standalone-match-function)
 	- [Compiled pattern](#compiled-pattern)
@@ -31,12 +26,33 @@
 	- [Related projects](#related-projects)
 	- [License](#license)
 
-## Installation
+
+## Introduction
+
+**shwild** is a small, simple library that provides shell-compatible wildcard matching. The first **shwild** library was a **C/C++** library with a **C** API and a **C++** wrapper. There have been several implementations in other languages. **shwild.Go** is the
+**Go** version.
+
+
+## Installation & Usage
+
+Install via `go get`, as in:
+
+```bash
+go get "github.com/synesissoftware/shwild.Go"
+```
+
+and then import as:
 
 ```Go
-
 import shwild "github.com/synesissoftware/shwild.Go"
 ```
+
+or, simply, as:
+
+```Go
+import "github.com/synesissoftware/shwild.Go"
+```
+
 
 ## Components
 
@@ -48,17 +64,32 @@ Two means of pattern matching are provided:
 ### Standalone match function
 
 ```Go
+// Determines whether the given s matches the given pattern.
 func Match(pattern string, s string, args ...any) (bool, error)
 ```
 
 `shwild.Match` evaluates string `s` against `pattern`, subject to additional arguments that moderate behaviour, and returns a `bool` that indicates match if the function succeeds; if if fails the `error` contains information about why.
 
+This could be used as follows:
+
+```Go
+shwild.Match("[ER]*", "")            // => false, nil
+shwild.Match("[ER]*", "E")           // => true, nil
+shwild.Match("[ER]*", "EX")          // => true, nil
+shwild.Match("[ER]*", "EXAMPLES.md") // => true, nil
+shwild.Match("[ER]*", "LICENSE")     // => false, nil
+shwild.Match("[ER]*", "README.md")   // => true, nil
+```
+
 
 ### Compiled pattern
 
 ```Go
+// Creates an instance of [CompiledPattern] from the given pattern.
 func Compile(pattern string, args ...any) (CompiledPattern, error)
 
+// Determines whether the given string matches the [CompiledPattern]
+// instance.
 func (cp CompiledPattern) Match(s string) (bool, error)
 ```
 

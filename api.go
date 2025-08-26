@@ -32,6 +32,8 @@ type CompiledPattern struct {
 	behaviour patternBehaviour
 }
 
+// Determines whether the given string matches the [CompiledPattern]
+// instance.
 func (cp CompiledPattern) Match(s string) (bool, error) {
 
 	switch cp.behaviour {
@@ -80,6 +82,7 @@ func (cp CompiledPattern) String() string {
  * API functions
  */
 
+// Determines whether the given s matches the given pattern.
 func Match(pattern string, s string, args ...any) (bool, error) {
 
 	// An empty pattern can only match an empty string
@@ -126,6 +129,7 @@ func Match(pattern string, s string, args ...any) (bool, error) {
 	return match_from_compiled_(matchers, s)
 }
 
+// Creates an instance of [CompiledPattern] from the given pattern.
 func Compile(pattern string, args ...any) (CompiledPattern, error) {
 
 	// An empty pattern can only match an empty string
