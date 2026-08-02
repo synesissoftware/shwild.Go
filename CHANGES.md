@@ -1,4 +1,4 @@
-# **shwild.Go** Changes
+# shwild.Go - CHANGES <!-- omit in toc -->
 
 
 ## 0.2.7 - 18th August 2025
