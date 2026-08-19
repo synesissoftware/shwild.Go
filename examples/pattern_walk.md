@@ -1,4 +1,4 @@
-# shwild.Go Example - **pattern_walk**
+# shwild.Go - Example - **pattern_walk**
 
 ## Summary
 
