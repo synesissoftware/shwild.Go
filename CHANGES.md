@@ -1,5 +1,15 @@
-# shwild.Go - CHANGES <!-- omit in toc -->
+# shwild.Go - Changes <!-- omit in toc -->
 
+
+## 0.2.8 - 20th August 2026
+
+* added **Version()** (replacing the **Version** constant), formed by **ver2go.CombineVersion()**;
+* documented **Version()** and **VersionString()**;
+* **VersionAB** now uses **ver2go.Release**;
+* updated **ver2go** to 0.2.0-beta1;
+* updated **CLASP.Go** to 0.18.0;
+* relocated **examples/libver** to **examples/libver/main.go**;
+* version string updated for the 0.2.8 release;
 
 ## 0.2.7 - 18th August 2025
 

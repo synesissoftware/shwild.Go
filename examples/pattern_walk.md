@@ -1,4 +1,4 @@
-# shwild.Go Example - **pattern_walk**
+# shwild.Go - Example - **pattern_walk**
 
 ## Summary
 
@@ -237,3 +237,6 @@ found 'examples/.pattern_walk.go.swp' 12288 bytes
 found 'match_test.go' 7610 bytes
 found 'matchers.go' 7082 bytes
 ```
+
+
+<!-- ########################### end of file ########################### -->
