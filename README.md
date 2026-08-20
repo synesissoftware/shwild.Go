@@ -7,7 +7,6 @@
 [![GitHub release](https://img.shields.io/github/v/release/synesissoftware/shwild.Go.svg)](https://github.com/synesissoftware/shwild.Go/releases/latest)
 [![Last Commit](https://img.shields.io/github/last-commit/synesissoftware/shwild.Go)](https://github.com/synesissoftware/shwild.Go/commits/master)
 [![Go](https://github.com/synesissoftware/shwild.Go/actions/workflows/go.yml/badge.svg)](https://github.com/synesissoftware/shwild.Go/actions/workflows/go.yml)
-[![Go Report Card](https://goreportcard.com/badge/github.com/synesissoftware/shwild.Go)](https://goreportcard.com/report/github.com/synesissoftware/shwild.Go)
 [![Go Reference](https://pkg.go.dev/badge/github.com/synesissoftware/shwild.Go.svg)](https://pkg.go.dev/github.com/synesissoftware/shwild.Go)
 
 
@@ -18,6 +17,7 @@
 - [Components](#components)
 	- [Standalone match function](#standalone-match-function)
 	- [Compiled pattern](#compiled-pattern)
+	- [Version](#version)
 - [Examples](#examples)
 - [Project Information](#project-information)
 	- [Where to get help](#where-to-get-help)
@@ -95,6 +95,21 @@ func (cp CompiledPattern) Match(s string) (bool, error)
 ```
 
 `shwild.Compile` compiles `pattern` into a `CompiledPattern` instance, which may then be used to evaluate string `s` against `pattern`, subject to additional arguments that moderate behaviour, and returns a `bool` that indicates match if the function succeeds; if if fails the `error` contains information about why.
+
+
+### Version
+
+```Go
+const (
+	VersionMajor uint16 = /* ... */
+	VersionMinor uint16 = /* ... */
+	VersionPatch uint16 = /* ... */
+	VersionAB    uint16 = /* ... */
+)
+
+func Version() uint64
+func VersionString() string
+```
 
 
 ## Examples

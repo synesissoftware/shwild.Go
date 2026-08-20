@@ -1,8 +1,9 @@
 package shwild_test
 
 import (
-	"github.com/stretchr/testify/require"
 	"github.com/synesissoftware/shwild.Go"
+
+	"github.com/stretchr/testify/require"
 
 	"testing"
 )
@@ -22,7 +23,7 @@ func Test_Version_Elements(t *testing.T) {
 }
 
 func Test_Version(t *testing.T) {
-	require.Equal(t, uint64(0x0000_0002_0008_FFFF), shwild.Version)
+	require.Equal(t, uint64(0x0000_0002_0008_FFFF), shwild.Version())
 }
 
 func Test_Version_String(t *testing.T) {
